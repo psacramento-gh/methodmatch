@@ -92,7 +92,13 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
                   ))}
                 </div>
               </TableCell>
-                <TableCell>{method.designPhase}</TableCell>
+                <TableCell>
+                  <div className="flex flex-wrap gap-1">
+                    {method.designPhase.split(',').map((phase, i) => (
+                      <LevelBadge key={i} level={phase.trim()} type="designPhase" />
+                    ))}
+                  </div>
+                </TableCell>
                 <TableCell>{method.analysisFocus}</TableCell>
                 <TableCell>
                   <LevelBadge level={method.dataCollection} type="dataCollection" />
@@ -149,7 +155,11 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1">
                 <span className="text-xs font-semibold text-muted-foreground">Design Phase</span>
-                <p className="text-sm">{method.designPhase}</p>
+                <div className="flex flex-wrap gap-1 mt-0.5">
+                  {method.designPhase.split(',').map((phase, i) => (
+                    <LevelBadge key={i} level={phase.trim()} type="designPhase" />
+                  ))}
+                </div>
               </div>
               <div className="space-y-1">
                 <span className="text-xs font-semibold text-muted-foreground">Analysis Focus</span>
