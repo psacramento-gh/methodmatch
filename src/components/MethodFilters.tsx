@@ -1,3 +1,4 @@
+import { Info } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -25,6 +26,14 @@ import {
 import { Filters } from '@/hooks/useMethodFilters';
 
 const FILTER_TOOLTIPS: Record<string, string> = {
+  // Category descriptions (for info icons)
+  'Question-info': 'What type of research question are you trying to answer?',
+  'Design Phase-info': 'When in the design process will you use this method?',
+  'Analysis Focus-info': 'What type of insights are you looking for?',
+  'Data Collection-info': 'How will you gather data for this research?',
+  'Cost-info': 'How much budget is required for this method?',
+  'Time-info': 'How long will it take to complete the research?',
+  
   // Design Phase
   'Plan': 'Methods best suited for the early discovery phase, before design work begins.',
   'Design': 'Methods commonly used during active design and prototyping iterations.',
@@ -70,7 +79,17 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {/* Question Dropdown */}
           <div className="space-y-2 p-3 rounded-lg border border-border/40 hover:border-border hover:bg-muted/20 transition-colors">
-            <Label className="font-semibold text-foreground">Question</Label>
+            <Label className="font-semibold text-foreground flex items-center gap-1.5">
+              Question
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="max-w-xs">{FILTER_TOOLTIPS['Question-info']}</p>
+                </TooltipContent>
+              </Tooltip>
+            </Label>
             <Select
               value={filters.question}
               onValueChange={(value) => onFilterChange('question', value === 'all' ? '' : value)}
@@ -91,7 +110,17 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
 
           {/* Design Phase Checkboxes */}
           <div className="space-y-2 p-3 rounded-lg border border-border/40 hover:border-border hover:bg-muted/20 transition-colors">
-            <Label className="font-semibold text-foreground">Design Phase</Label>
+            <Label className="font-semibold text-foreground flex items-center gap-1.5">
+              Design Phase
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="max-w-xs">{FILTER_TOOLTIPS['Design Phase-info']}</p>
+                </TooltipContent>
+              </Tooltip>
+            </Label>
             <div className="flex flex-wrap gap-3">
               {designPhases.map((phase) => (
                 <Tooltip key={phase}>
@@ -118,7 +147,17 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
 
           {/* Analysis Focus Checkboxes */}
           <div className="space-y-2 p-3 rounded-lg border border-border/40 hover:border-border hover:bg-muted/20 transition-colors">
-            <Label className="font-semibold text-foreground">Analysis Focus</Label>
+            <Label className="font-semibold text-foreground flex items-center gap-1.5">
+              Analysis Focus
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="max-w-xs">{FILTER_TOOLTIPS['Analysis Focus-info']}</p>
+                </TooltipContent>
+              </Tooltip>
+            </Label>
             <div className="flex flex-wrap gap-3">
               {analysisFocuses.map((focus) => (
                 <Tooltip key={focus}>
@@ -145,7 +184,17 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
 
           {/* Data Collection Radio */}
           <div className="space-y-2 p-3 rounded-lg border border-border/40 hover:border-border hover:bg-muted/20 transition-colors">
-            <Label className="font-semibold text-foreground">Data Collection</Label>
+            <Label className="font-semibold text-foreground flex items-center gap-1.5">
+              Data Collection
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="max-w-xs">{FILTER_TOOLTIPS['Data Collection-info']}</p>
+                </TooltipContent>
+              </Tooltip>
+            </Label>
             <RadioGroup
               value={filters.dataCollection || 'all'}
               onValueChange={(value) => onFilterChange('dataCollection', value === 'all' ? '' : value)}
@@ -173,7 +222,17 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
 
           {/* Cost Radio */}
           <div className="space-y-2 p-3 rounded-lg border border-border/40 hover:border-border hover:bg-muted/20 transition-colors">
-            <Label className="font-semibold text-foreground">Cost</Label>
+            <Label className="font-semibold text-foreground flex items-center gap-1.5">
+              Cost
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="max-w-xs">{FILTER_TOOLTIPS['Cost-info']}</p>
+                </TooltipContent>
+              </Tooltip>
+            </Label>
             <RadioGroup
               value={filters.cost || 'all'}
               onValueChange={(value) => onFilterChange('cost', value === 'all' ? '' : value)}
@@ -201,7 +260,17 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
 
           {/* Time Radio */}
           <div className="space-y-2 p-3 rounded-lg border border-border/40 hover:border-border hover:bg-muted/20 transition-colors">
-            <Label className="font-semibold text-foreground">Time</Label>
+            <Label className="font-semibold text-foreground flex items-center gap-1.5">
+              Time
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="max-w-xs">{FILTER_TOOLTIPS['Time-info']}</p>
+                </TooltipContent>
+              </Tooltip>
+            </Label>
             <RadioGroup
               value={filters.time || 'all'}
               onValueChange={(value) => onFilterChange('time', value === 'all' ? '' : value)}
