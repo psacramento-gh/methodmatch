@@ -22,9 +22,14 @@ const Index = () => {
     <div className="min-h-screen bg-background p-5">
       <div className="max-w-[1600px] mx-auto">
         <div className="flex items-center justify-between mb-5">
-          <h1 className="text-3xl font-bold text-foreground">
-            MethodMatch: Find the right UX method
-          </h1>
+          <div>
+            <h1 className="text-3xl font-bold text-foreground">
+              MethodMatch
+            </h1>
+            <p className="text-muted-foreground text-sm">
+              Find the right UX method
+            </p>
+          </div>
           <ThemeToggle />
         </div>
 
