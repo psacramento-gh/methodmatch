@@ -3,6 +3,7 @@ import { MethodFilters } from '@/components/MethodFilters';
 import { MethodTable } from '@/components/MethodTable';
 import { ResultsBar } from '@/components/ResultsBar';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { Footer } from '@/components/Footer';
 const Index = () => {
   const {
     filters,
@@ -33,6 +34,8 @@ const Index = () => {
         <ResultsBar filteredCount={filteredMethods.length} totalCount={totalMethods} hasActiveFilters={hasActiveFilters} onClearFilters={clearAllFilters} />
 
         <MethodTable methods={filteredMethods} sortKey={sortKey} sortOrder={sortOrder} onSort={handleSort} />
+
+        <Footer />
       </div>
     </div>;
 };
