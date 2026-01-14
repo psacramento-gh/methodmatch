@@ -83,7 +83,7 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
               <TableCell className="max-w-xs">
                 <div className="text-sm space-y-1">
                   {method.questions.map((q, i) => (
-                    <p key={i} className="text-muted-foreground font-bold italic">– {q}</p>
+                    <p key={i} className="text-muted-foreground italic">– {q}</p>
                   ))}
                 </div>
               </TableCell>
@@ -136,7 +136,7 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
               <span className="text-xs font-semibold text-muted-foreground">Questions</span>
                 <div className="text-sm space-y-0.5">
                   {method.questions.map((q, i) => (
-                    <p key={i} className="text-muted-foreground font-bold italic">– {q}</p>
+                    <p key={i} className="text-muted-foreground italic">– {q}</p>
                   ))}
                 </div>
             </div>
