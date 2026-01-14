@@ -64,7 +64,7 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
               <Label
                 key={phase}
                 htmlFor={`phase-${phase}`}
-                className="flex items-center gap-2 cursor-pointer"
+                className="flex items-center gap-2 cursor-pointer px-2 py-1 -mx-2 rounded-md hover:bg-muted transition-colors"
               >
                 <Checkbox
                   id={`phase-${phase}`}
@@ -85,7 +85,7 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
               <Label
                 key={focus}
                 htmlFor={`focus-${focus}`}
-                className="flex items-center gap-2 cursor-pointer"
+                className="flex items-center gap-2 cursor-pointer px-2 py-1 -mx-2 rounded-md hover:bg-muted transition-colors"
               >
                 <Checkbox
                   id={`focus-${focus}`}
@@ -106,12 +106,12 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
             onValueChange={(value) => onFilterChange('dataCollection', value === 'all' ? '' : value)}
             className="flex flex-wrap gap-3"
           >
-            <Label htmlFor="dc-all" className="flex items-center gap-2 cursor-pointer">
+            <Label htmlFor="dc-all" className="flex items-center gap-2 cursor-pointer px-2 py-1 -mx-2 rounded-md hover:bg-muted transition-colors">
               <RadioGroupItem value="all" id="dc-all" />
               <span className="text-sm font-normal">All</span>
             </Label>
             {dataCollections.map((dc) => (
-              <Label key={dc} htmlFor={`dc-${dc}`} className="flex items-center gap-2 cursor-pointer">
+              <Label key={dc} htmlFor={`dc-${dc}`} className="flex items-center gap-2 cursor-pointer px-2 py-1 -mx-2 rounded-md hover:bg-muted transition-colors">
                 <RadioGroupItem value={dc} id={`dc-${dc}`} />
                 <span className="text-sm font-normal">{dc}</span>
               </Label>
@@ -127,12 +127,12 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
             onValueChange={(value) => onFilterChange('cost', value === 'all' ? '' : value)}
             className="flex flex-wrap gap-3"
           >
-            <Label htmlFor="cost-all" className="flex items-center gap-2 cursor-pointer">
+            <Label htmlFor="cost-all" className="flex items-center gap-2 cursor-pointer px-2 py-1 -mx-2 rounded-md hover:bg-muted transition-colors">
               <RadioGroupItem value="all" id="cost-all" />
               <span className="text-sm font-normal">All</span>
             </Label>
             {costs.map((cost) => (
-              <Label key={cost} htmlFor={`cost-${cost}`} className="flex items-center gap-2 cursor-pointer">
+              <Label key={cost} htmlFor={`cost-${cost}`} className="flex items-center gap-2 cursor-pointer px-2 py-1 -mx-2 rounded-md hover:bg-muted transition-colors">
                 <RadioGroupItem value={cost} id={`cost-${cost}`} />
                 <span className="text-sm font-normal">{cost}</span>
               </Label>
@@ -148,12 +148,12 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
             onValueChange={(value) => onFilterChange('time', value === 'all' ? '' : value)}
             className="flex flex-wrap gap-3"
           >
-            <Label htmlFor="time-all" className="flex items-center gap-2 cursor-pointer">
+            <Label htmlFor="time-all" className="flex items-center gap-2 cursor-pointer px-2 py-1 -mx-2 rounded-md hover:bg-muted transition-colors">
               <RadioGroupItem value="all" id="time-all" />
               <span className="text-sm font-normal">All</span>
             </Label>
             {times.map((time) => (
-              <Label key={time} htmlFor={`time-${time}`} className="flex items-center gap-2 cursor-pointer">
+              <Label key={time} htmlFor={`time-${time}`} className="flex items-center gap-2 cursor-pointer px-2 py-1 -mx-2 rounded-md hover:bg-muted transition-colors">
                 <RadioGroupItem value={time} id={`time-${time}`} />
                 <span className="text-sm font-normal">{time}</span>
               </Label>
