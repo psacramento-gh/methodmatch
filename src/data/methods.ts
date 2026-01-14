@@ -221,11 +221,12 @@ export function getUniqueQuestions(): string[] {
 }
 
 export function getUniqueDesignPhases(): string[] {
+  const order = ['Plan', 'Design', 'Release'];
   const phases = new Set<string>();
   methods.forEach(m => {
     m.designPhase.split(',').map(p => p.trim()).forEach(p => phases.add(p));
   });
-  return [...phases].sort();
+  return [...phases].sort((a, b) => order.indexOf(a) - order.indexOf(b));
 }
 
 export function getUniqueAnalysisFocus(): string[] {
