@@ -1,5 +1,5 @@
 export interface UXMethod {
-  question: string;
+  questions: string[];
   method: string;
   designPhase: string;
   analysisFocus: string;
@@ -11,9 +11,8 @@ export interface UXMethod {
 }
 
 export const methods: UXMethod[] = [
-  // Question 1: Are there problems in the interface?
   {
-    question: "Are there problems in the interface?",
+    questions: ["Are there problems in the interface?"],
     method: "Formative Usability Testing",
     designPhase: "Design, Release",
     analysisFocus: "Qualitative, Quantitative",
@@ -24,7 +23,7 @@ export const methods: UXMethod[] = [
     link: "https://measuringu.com/services/formative-usability/"
   },
   {
-    question: "Are there problems in the interface?",
+    questions: ["Are there problems in the interface?"],
     method: "Heuristic Evaluation",
     designPhase: "Design, Release",
     analysisFocus: "Qualitative",
@@ -35,30 +34,36 @@ export const methods: UXMethod[] = [
     link: "https://www.nngroup.com/articles/how-to-conduct-a-heuristic-evaluation/"
   },
   {
-    question: "Are there problems in the interface?",
+    questions: [
+      "Are there problems in the interface?",
+      "Where do people look for information?",
+      "What problems do people have as they use our product?"
+    ],
     method: "Observation",
-    designPhase: "Release",
+    designPhase: "Plan, Design, Release",
     analysisFocus: "Qualitative",
     dataCollection: "Empirical",
-    cost: "Medium",
+    cost: "Low",
     time: "Medium",
     description: "Observation in UX research involves watching people use a product without interfering (e.g., employees entering expense reports), either in-person or remotely as they do their work with an existing product to generate ideas about actual or potential problems and/or new feature ideas.",
     link: "https://measuringu.com/observation-role/"
   },
-  // Question 2: Where do people look for information?
   {
-    question: "Where do people look for information?",
+    questions: [
+      "Where do people look for information?",
+      "How do we organize content and features?"
+    ],
     method: "Tree Test",
-    designPhase: "Design, Release",
-    analysisFocus: "Quantitative",
+    designPhase: "Plan, Design, Release",
+    analysisFocus: "Qualitative, Quantitative",
     dataCollection: "Empirical",
-    cost: "Medium",
+    cost: "Low",
     time: "Low",
     description: "A tree test is a type of usability test on the hierarchy/taxonomy of a navigation structure such as a website or software menu. Participants are asked where they would find content or features in a 'tree' structure.",
     link: "https://measuringu.com/tree-testing-ia/"
   },
   {
-    question: "Where do people look for information?",
+    questions: ["Where do people look for information?"],
     method: "Usability Test",
     designPhase: "Design, Release",
     analysisFocus: "Qualitative, Quantitative",
@@ -69,7 +74,7 @@ export const methods: UXMethod[] = [
     link: "https://www.nngroup.com/articles/usability-testing-101/"
   },
   {
-    question: "Where do people look for information?",
+    questions: ["Where do people look for information?"],
     method: "Click Test",
     designPhase: "Design, Release",
     analysisFocus: "Quantitative",
@@ -80,30 +85,21 @@ export const methods: UXMethod[] = [
     link: "https://measuringu.com/why-and-when-to-use-a-click-test/"
   },
   {
-    question: "Where do people look for information?",
-    method: "Observation",
-    designPhase: "Plan, Design, Release",
-    analysisFocus: "Qualitative",
-    dataCollection: "Empirical",
-    cost: "Low",
-    time: "Medium",
-    description: "Observation involves watching people use a product without interfering to understand where they look for information.",
-    link: "https://measuringu.com/observation-role/"
-  },
-  // Question 3: How does our product compare to competitors?
-  {
-    question: "How does our product compare to competitors?",
+    questions: [
+      "How does our product compare to competitors?",
+      "Is a new interface better than an alternative?"
+    ],
     method: "Task-Based Benchmark",
     designPhase: "Release",
     analysisFocus: "Quantitative",
     dataCollection: "Empirical",
     cost: "High",
     time: "High",
-    description: "Participants attempt prescribed tasks on the interface in a controlled setting to measure performance metrics.",
+    description: "Participants attempt prescribed tasks on the interface in a controlled setting to measure performance metrics. This method is used to benchmark performance and compare alternatives or competitors.",
     link: "https://measuringu.com/benchmark-intro/"
   },
   {
-    question: "How does our product compare to competitors?",
+    questions: ["How does our product compare to competitors?"],
     method: "Retrospective Benchmark (Survey)",
     designPhase: "Release",
     analysisFocus: "Quantitative",
@@ -114,19 +110,21 @@ export const methods: UXMethod[] = [
     link: "https://measuringu.com/benchmark-intro/"
   },
   {
-    question: "How does our product compare to competitors?",
+    questions: [
+      "How does our product compare to competitors?",
+      "Is a new interface better than an alternative?"
+    ],
     method: "PURE",
-    designPhase: "Release",
+    designPhase: "Design, Release",
     analysisFocus: "Quantitative",
     dataCollection: "Analytic",
     cost: "Low",
     time: "Low",
-    description: "Practical usability rating by experts combines cognitive walkthroughs with a scoring rubric to compare products.",
+    description: "Practical usability rating by experts combines cognitive walkthroughs with a scoring rubric to compare products and different interfaces.",
     link: "https://measuringu.com/pure/"
   },
-  // Question 4: What features do people want?
   {
-    question: "What features do people want?",
+    questions: ["What features do people want?"],
     method: "Survey",
     designPhase: "Plan",
     analysisFocus: "Qualitative, Quantitative",
@@ -137,7 +135,7 @@ export const methods: UXMethod[] = [
     link: "https://measuringu.com/survey-ux/"
   },
   {
-    question: "What features do people want?",
+    questions: ["What features do people want?"],
     method: "Interview",
     designPhase: "Plan",
     analysisFocus: "Qualitative",
@@ -147,9 +145,8 @@ export const methods: UXMethod[] = [
     description: "Interviews involve discussing with users or stakeholders to uncover desired features and insights.",
     link: "https://www.nngroup.com/articles/user-interviews/"
   },
-  // Question 5: Is a new interface better than an alternative?
   {
-    question: "Is a new interface better than an alternative?",
+    questions: ["Is a new interface better than an alternative?"],
     method: "A/B Testing",
     designPhase: "Release",
     analysisFocus: "Quantitative",
@@ -160,30 +157,7 @@ export const methods: UXMethod[] = [
     link: "https://www.nngroup.com/articles/ab-testing/"
   },
   {
-    question: "Is a new interface better than an alternative?",
-    method: "Task-Based Benchmark",
-    designPhase: "Release",
-    analysisFocus: "Quantitative",
-    dataCollection: "Empirical",
-    cost: "High",
-    time: "High",
-    description: "Participants perform tasks on different interfaces to benchmark performance and compare alternatives.",
-    link: "https://measuringu.com/benchmark-intro/"
-  },
-  {
-    question: "Is a new interface better than an alternative?",
-    method: "PURE",
-    designPhase: "Design, Release",
-    analysisFocus: "Quantitative",
-    dataCollection: "Analytic",
-    cost: "Low",
-    time: "Low",
-    description: "Experts rate the usability of different interfaces using a scoring rubric to compare them.",
-    link: "https://measuringu.com/pure/"
-  },
-  // Question 6: What problems do people have as they use our product?
-  {
-    question: "What problems do people have as they use our product?",
+    questions: ["What problems do people have as they use our product?"],
     method: "Diary Study",
     designPhase: "Release",
     analysisFocus: "Qualitative",
@@ -194,18 +168,7 @@ export const methods: UXMethod[] = [
     link: "https://www.nngroup.com/articles/diary-studies/"
   },
   {
-    question: "What problems do people have as they use our product?",
-    method: "Observation",
-    designPhase: "Release",
-    analysisFocus: "Qualitative",
-    dataCollection: "Empirical",
-    cost: "Medium",
-    time: "Medium",
-    description: "Observing users interact with the product to identify issues and areas for improvement.",
-    link: "https://measuringu.com/observation-role/"
-  },
-  {
-    question: "What problems do people have as they use our product?",
+    questions: ["What problems do people have as they use our product?"],
     method: "Search-Log Analysis",
     designPhase: "Release",
     analysisFocus: "Quantitative",
@@ -216,7 +179,7 @@ export const methods: UXMethod[] = [
     link: "https://www.nngroup.com/articles/search-log-analysis/"
   },
   {
-    question: "What problems do people have as they use our product?",
+    questions: ["What problems do people have as they use our product?"],
     method: "True Intent",
     designPhase: "Release",
     analysisFocus: "Quantitative",
@@ -227,7 +190,7 @@ export const methods: UXMethod[] = [
     link: "https://measuringu.com/true-intent/"
   },
   {
-    question: "What problems do people have as they use our product?",
+    questions: ["What problems do people have as they use our product?"],
     method: "Contextual Inquiry",
     designPhase: "Release",
     analysisFocus: "Qualitative",
@@ -237,9 +200,8 @@ export const methods: UXMethod[] = [
     description: "Conducting observations and interviews in the user's environment to uncover problems.",
     link: "https://measuringu.com/contextual-inquiry/"
   },
-  // Question 7: How do we organize content and features?
   {
-    question: "How do we organize content and features?",
+    questions: ["How do we organize content and features?"],
     method: "Card Sort",
     designPhase: "Plan, Design",
     analysisFocus: "Qualitative",
@@ -248,23 +210,14 @@ export const methods: UXMethod[] = [
     time: "Low",
     description: "Participants group content into categories to inform information architecture.",
     link: "https://measuringu.com/card-sorting-ia/"
-  },
-  {
-    question: "How do we organize content and features?",
-    method: "Tree Test",
-    designPhase: "Plan, Design",
-    analysisFocus: "Qualitative, Quantitative",
-    dataCollection: "Empirical",
-    cost: "Low",
-    time: "Low",
-    description: "Testing the navigation structure to ensure users can find information efficiently.",
-    link: "https://measuringu.com/tree-testing-ia/"
   }
 ];
 
 // Helper functions to extract unique filter options
 export function getUniqueQuestions(): string[] {
-  return [...new Set(methods.map(m => m.question))].sort();
+  const questions = new Set<string>();
+  methods.forEach(m => m.questions.forEach(q => questions.add(q)));
+  return [...questions].sort();
 }
 
 export function getUniqueDesignPhases(): string[] {

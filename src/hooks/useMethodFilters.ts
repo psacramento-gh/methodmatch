@@ -118,13 +118,14 @@ export function useMethodFilters() {
       const query = filters.searchQuery.toLowerCase();
       result = result.filter(m => 
         m.method.toLowerCase().includes(query) ||
-        m.description.toLowerCase().includes(query)
+        m.description.toLowerCase().includes(query) ||
+        m.questions.some(q => q.toLowerCase().includes(query))
       );
     }
 
     // Apply filters
     if (filters.question) {
-      result = result.filter(m => m.question === filters.question);
+      result = result.filter(m => m.questions.includes(filters.question));
     }
 
     if (filters.designPhase.length > 0) {
@@ -154,10 +155,10 @@ export function useMethodFilters() {
     }
 
     // Apply sorting
-    if (sortKey) {
+    if (sortKey && sortKey !== 'questions') {
       result.sort((a, b) => {
-        const aVal = (a[sortKey] || '').toUpperCase();
-        const bVal = (b[sortKey] || '').toUpperCase();
+        const aVal = String(a[sortKey] || '').toUpperCase();
+        const bVal = String(b[sortKey] || '').toUpperCase();
         if (aVal < bVal) return sortOrder === 'asc' ? -1 : 1;
         if (aVal > bVal) return sortOrder === 'asc' ? 1 : -1;
         return 0;
