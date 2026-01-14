@@ -24,17 +24,17 @@ export function ResultsBar({
         {' '}methods
       </p>
       
-      {hasActiveFilters && (
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={onClearFilters}
-          className="text-muted-foreground hover:text-foreground"
-        >
-          <X className="h-4 w-4 mr-1" />
-          Clear all filters
-        </Button>
-      )}
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={onClearFilters}
+        className={`text-muted-foreground hover:text-foreground ${
+          !hasActiveFilters ? 'invisible' : ''
+        }`}
+      >
+        <X className="h-4 w-4 mr-1" />
+        Clear all filters
+      </Button>
     </div>
   );
 }
