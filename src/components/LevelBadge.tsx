@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils';
+import { Brain, Users } from 'lucide-react';
 
 interface LevelBadgeProps {
   level: 'Low' | 'Medium' | 'High' | 'Analytic' | 'Empirical' | string;
@@ -19,6 +20,11 @@ export function LevelBadge({ level, type = 'cost' }: LevelBadgeProps) {
     Empirical: "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400",
   };
 
+  const dataCollectionIcons = {
+    Analytic: Brain,
+    Empirical: Users,
+  };
+
   const levelIcons = {
     Low: "●",
     Medium: "●●",
@@ -27,9 +33,11 @@ export function LevelBadge({ level, type = 'cost' }: LevelBadgeProps) {
 
   let colorClass: string;
   let icon: string = "";
+  let IconComponent: typeof Brain | typeof Users | null = null;
 
   if (type === 'dataCollection') {
     colorClass = dataCollectionClasses[level as keyof typeof dataCollectionClasses] || dataCollectionClasses.Analytic;
+    IconComponent = dataCollectionIcons[level as keyof typeof dataCollectionIcons] || null;
   } else {
     const validLevel = level as keyof typeof levelClasses;
     colorClass = levelClasses[validLevel] || levelClasses.Medium;
@@ -38,6 +46,7 @@ export function LevelBadge({ level, type = 'cost' }: LevelBadgeProps) {
 
   return (
     <span className={cn(baseClasses, colorClass)}>
+      {IconComponent && <IconComponent className="mr-1 h-3 w-3" />}
       {icon && <span className="mr-1 text-[8px] opacity-70">{icon}</span>}
       {level}
     </span>
