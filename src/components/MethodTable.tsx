@@ -100,7 +100,11 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
                   </div>
                 </TableCell>
                 <TableCell>
-                  <LevelBadge level={method.analysisFocus} type="analysisFocus" />
+                  <div className="flex flex-wrap gap-1">
+                    {method.analysisFocus.split(',').map((focus) => (
+                      <LevelBadge key={focus.trim()} level={focus.trim()} type="analysisFocus" />
+                    ))}
+                  </div>
                 </TableCell>
                 <TableCell>
                   <LevelBadge level={method.dataCollection} type="dataCollection" />
@@ -165,8 +169,10 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
               </div>
               <div className="space-y-1">
                 <span className="text-xs font-semibold text-muted-foreground">Analysis Focus</span>
-                <div className="mt-0.5">
-                  <LevelBadge level={method.analysisFocus} type="analysisFocus" />
+                <div className="flex flex-wrap gap-1 mt-0.5">
+                  {method.analysisFocus.split(',').map((focus) => (
+                    <LevelBadge key={focus.trim()} level={focus.trim()} type="analysisFocus" />
+                  ))}
                 </div>
               </div>
               <div className="space-y-1">
