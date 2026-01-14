@@ -1,16 +1,20 @@
 import { useMethodFilters } from '@/hooks/useMethodFilters';
 import { MethodFilters } from '@/components/MethodFilters';
 import { MethodTable } from '@/components/MethodTable';
+import { ResultsBar } from '@/components/ResultsBar';
 
 const Index = () => {
   const {
     filters,
     updateFilter,
     toggleCheckboxFilter,
+    clearAllFilters,
+    hasActiveFilters,
     sortKey,
     sortOrder,
     handleSort,
-    filteredMethods
+    filteredMethods,
+    totalMethods
   } = useMethodFilters();
 
   return (
@@ -24,6 +28,13 @@ const Index = () => {
           filters={filters}
           onFilterChange={updateFilter}
           onCheckboxToggle={toggleCheckboxFilter}
+        />
+
+        <ResultsBar
+          filteredCount={filteredMethods.length}
+          totalCount={totalMethods}
+          hasActiveFilters={hasActiveFilters}
+          onClearFilters={clearAllFilters}
         />
 
         <MethodTable

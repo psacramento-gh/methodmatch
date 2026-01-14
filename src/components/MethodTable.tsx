@@ -9,6 +9,8 @@ import {
 } from '@/components/ui/table';
 import { UXMethod } from '@/data/methods';
 import { SortKey, SortOrder } from '@/hooks/useMethodFilters';
+import { LevelBadge } from '@/components/LevelBadge';
+import { CollapsibleText } from '@/components/CollapsibleText';
 
 interface MethodTableProps {
   methods: UXMethod[];
@@ -82,9 +84,15 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
                 <TableCell>{method.designPhase}</TableCell>
                 <TableCell>{method.analysisFocus}</TableCell>
                 <TableCell>{method.dataCollection}</TableCell>
-                <TableCell>{method.cost}</TableCell>
-                <TableCell>{method.time}</TableCell>
-                <TableCell className="max-w-md">{method.description}</TableCell>
+                <TableCell>
+                  <LevelBadge level={method.cost} type="cost" />
+                </TableCell>
+                <TableCell>
+                  <LevelBadge level={method.time} type="time" />
+                </TableCell>
+                <TableCell className="max-w-md">
+                  <CollapsibleText text={method.description} maxLength={100} />
+                </TableCell>
               </TableRow>
             ))}
             {methods.length === 0 && (
@@ -137,16 +145,22 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
               </div>
               <div className="space-y-1">
                 <span className="text-xs font-semibold text-muted-foreground">Cost</span>
-                <p className="text-sm">{method.cost}</p>
+                <div className="mt-0.5">
+                  <LevelBadge level={method.cost} type="cost" />
+                </div>
               </div>
               <div className="space-y-1">
                 <span className="text-xs font-semibold text-muted-foreground">Time</span>
-                <p className="text-sm">{method.time}</p>
+                <div className="mt-0.5">
+                  <LevelBadge level={method.time} type="time" />
+                </div>
               </div>
             </div>
             <div className="space-y-1">
               <span className="text-xs font-semibold text-muted-foreground">Description</span>
-              <p className="text-sm text-muted-foreground">{method.description}</p>
+              <div className="text-sm">
+                <CollapsibleText text={method.description} maxLength={150} />
+              </div>
             </div>
           </div>
         ))}
