@@ -1,9 +1,9 @@
 import { cn } from '@/lib/utils';
-import { Brain, Users, Pencil, PenTool, Rocket } from 'lucide-react';
+import { Brain, Users, Pencil, PenTool, Rocket, MessageCircle, ChartNoAxesColumn } from 'lucide-react';
 
 interface LevelBadgeProps {
-  level: 'Low' | 'Medium' | 'High' | 'Analytic' | 'Empirical' | 'Plan' | 'Design' | 'Release' | string;
-  type?: 'cost' | 'time' | 'dataCollection' | 'designPhase';
+  level: 'Low' | 'Medium' | 'High' | 'Analytic' | 'Empirical' | 'Plan' | 'Design' | 'Release' | 'Qualitative' | 'Quantitative' | string;
+  type?: 'cost' | 'time' | 'dataCollection' | 'designPhase' | 'analysisFocus';
 }
 
 export function LevelBadge({ level, type = 'cost' }: LevelBadgeProps) {
@@ -37,8 +37,18 @@ export function LevelBadge({ level, type = 'cost' }: LevelBadgeProps) {
     Release: Rocket,
   };
 
+  const analysisFocusClasses = {
+    Qualitative: "bg-violet-100 text-violet-800 dark:bg-violet-900/30 dark:text-violet-400",
+    Quantitative: "bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-400",
+  };
+
+  const analysisFocusIcons = {
+    Qualitative: MessageCircle,
+    Quantitative: ChartNoAxesColumn,
+  };
+
   let colorClass: string;
-  let IconComponent: typeof Brain | typeof Users | typeof Pencil | typeof PenTool | typeof Rocket | null = null;
+  let IconComponent: typeof Brain | typeof Users | typeof Pencil | typeof PenTool | typeof Rocket | typeof MessageCircle | typeof ChartNoAxesColumn | null = null;
 
   if (type === 'dataCollection') {
     colorClass = dataCollectionClasses[level as keyof typeof dataCollectionClasses] || dataCollectionClasses.Analytic;
@@ -46,6 +56,9 @@ export function LevelBadge({ level, type = 'cost' }: LevelBadgeProps) {
   } else if (type === 'designPhase') {
     colorClass = designPhaseClasses[level as keyof typeof designPhaseClasses] || designPhaseClasses.Plan;
     IconComponent = designPhaseIcons[level as keyof typeof designPhaseIcons] || null;
+  } else if (type === 'analysisFocus') {
+    colorClass = analysisFocusClasses[level as keyof typeof analysisFocusClasses] || analysisFocusClasses.Qualitative;
+    IconComponent = analysisFocusIcons[level as keyof typeof analysisFocusIcons] || null;
   } else {
     const validLevel = level as keyof typeof levelClasses;
     colorClass = levelClasses[validLevel] || levelClasses.Medium;
