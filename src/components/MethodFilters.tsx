@@ -26,9 +26,9 @@ import { Filters } from '@/hooks/useMethodFilters';
 
 const FILTER_TOOLTIPS: Record<string, string> = {
   // Design Phase
-  'Plan': 'Early stage research to understand user needs and define product strategy.',
-  'Design': 'Iterative research during the creation of interfaces to refine concepts and usability.',
-  'Release': 'Evaluative research on live products to measure performance and identify real-world issues.',
+  'Plan': 'Methods best suited for the early discovery phase, before design work begins.',
+  'Design': 'Methods commonly used during active design and prototyping iterations.',
+  'Release': 'Methods typically applied after launch to evaluate live products.',
   
   // Analysis Focus
   'Qualitative': 'Focuses on understanding the "why" through observations, behaviors, and open-ended feedback.',
