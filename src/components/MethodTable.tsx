@@ -75,10 +75,10 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
                     href={method.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-primary hover:underline font-bold inline-flex items-center gap-1"
+                    className="text-primary hover:underline font-bold"
                   >
                     {method.method}
-                    <ExternalLink className="h-3 w-3" />
+                    <ExternalLink className="h-3 w-3 inline ml-1 align-baseline" />
                   </a>
                 </TableCell>
               <TableCell className="max-w-xs">
@@ -126,10 +126,10 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
                 href={method.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary hover:underline text-sm font-bold inline-flex items-center gap-1"
+                className="text-primary hover:underline text-sm font-bold"
               >
                 {method.method}
-                <ExternalLink className="h-3 w-3" />
+                <ExternalLink className="h-3 w-3 inline ml-1 align-baseline" />
               </a>
             </div>
             <div className="space-y-1">
