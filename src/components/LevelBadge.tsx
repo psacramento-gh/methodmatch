@@ -1,8 +1,8 @@
 import { cn } from '@/lib/utils';
 
 interface LevelBadgeProps {
-  level: 'Low' | 'Medium' | 'High' | string;
-  type?: 'cost' | 'time';
+  level: 'Low' | 'Medium' | 'High' | 'Analytic' | 'Empirical' | string;
+  type?: 'cost' | 'time' | 'dataCollection';
 }
 
 export function LevelBadge({ level, type = 'cost' }: LevelBadgeProps) {
@@ -14,19 +14,31 @@ export function LevelBadge({ level, type = 'cost' }: LevelBadgeProps) {
     High: "bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-400",
   };
 
+  const dataCollectionClasses = {
+    Analytic: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400",
+    Empirical: "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400",
+  };
+
   const levelIcons = {
     Low: "●",
     Medium: "●●",
     High: "●●●",
   };
 
-  const validLevel = level as keyof typeof levelClasses;
-  const colorClass = levelClasses[validLevel] || levelClasses.Medium;
-  const icon = levelIcons[validLevel] || "";
+  let colorClass: string;
+  let icon: string = "";
+
+  if (type === 'dataCollection') {
+    colorClass = dataCollectionClasses[level as keyof typeof dataCollectionClasses] || dataCollectionClasses.Analytic;
+  } else {
+    const validLevel = level as keyof typeof levelClasses;
+    colorClass = levelClasses[validLevel] || levelClasses.Medium;
+    icon = levelIcons[validLevel] || "";
+  }
 
   return (
     <span className={cn(baseClasses, colorClass)}>
-      <span className="mr-1 text-[8px] opacity-70">{icon}</span>
+      {icon && <span className="mr-1 text-[8px] opacity-70">{icon}</span>}
       {level}
     </span>
   );

@@ -94,7 +94,9 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
               </TableCell>
                 <TableCell>{method.designPhase}</TableCell>
                 <TableCell>{method.analysisFocus}</TableCell>
-                <TableCell>{method.dataCollection}</TableCell>
+                <TableCell>
+                  <LevelBadge level={method.dataCollection} type="dataCollection" />
+                </TableCell>
                 <TableCell>
                   <LevelBadge level={method.cost} type="cost" />
                 </TableCell>
@@ -155,7 +157,9 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
               </div>
               <div className="space-y-1">
                 <span className="text-xs font-semibold text-muted-foreground">Data Collection</span>
-                <p className="text-sm">{method.dataCollection}</p>
+                <div className="mt-0.5">
+                  <LevelBadge level={method.dataCollection} type="dataCollection" />
+                </div>
               </div>
               <div className="space-y-1">
                 <span className="text-xs font-semibold text-muted-foreground">Cost</span>
