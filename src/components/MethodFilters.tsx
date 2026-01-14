@@ -24,6 +24,18 @@ import {
   getUniqueTime,
 } from '@/data/methods';
 import { Filters } from '@/hooks/useMethodFilters';
+import { badgeColors } from '@/components/LevelBadge';
+import { cn } from '@/lib/utils';
+
+// Mini badge component for filter options
+const FilterBadge = ({ label }: { label: string }) => (
+  <span className={cn(
+    "inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium",
+    badgeColors[label]
+  )}>
+    {label}
+  </span>
+);
 
 const FILTER_TOOLTIPS: Record<string, string> = {
   // Category descriptions (for info icons)
@@ -134,7 +146,7 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
                         checked={filters.designPhase.includes(phase)}
                         onCheckedChange={() => onCheckboxToggle('designPhase', phase)}
                       />
-                      <span className="text-sm font-normal">{phase}</span>
+                      <FilterBadge label={phase} />
                     </Label>
                   </TooltipTrigger>
                   <TooltipContent>
@@ -171,7 +183,7 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
                         checked={filters.analysisFocus.includes(focus)}
                         onCheckedChange={() => onCheckboxToggle('analysisFocus', focus)}
                       />
-                      <span className="text-sm font-normal">{focus}</span>
+                      <FilterBadge label={focus} />
                     </Label>
                   </TooltipTrigger>
                   <TooltipContent>
@@ -209,7 +221,7 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
                   <TooltipTrigger asChild>
                     <Label htmlFor={`dc-${dc}`} className="flex items-center gap-2 cursor-pointer px-2 py-1 -mx-2 rounded-md hover:bg-muted transition-colors">
                       <RadioGroupItem value={dc} id={`dc-${dc}`} />
-                      <span className="text-sm font-normal">{dc}</span>
+                      <FilterBadge label={dc} />
                     </Label>
                   </TooltipTrigger>
                   <TooltipContent>
@@ -247,7 +259,7 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
                   <TooltipTrigger asChild>
                     <Label htmlFor={`cost-${cost}`} className="flex items-center gap-2 cursor-pointer px-2 py-1 -mx-2 rounded-md hover:bg-muted transition-colors">
                       <RadioGroupItem value={cost} id={`cost-${cost}`} />
-                      <span className="text-sm font-normal">{cost}</span>
+                      <FilterBadge label={cost} />
                     </Label>
                   </TooltipTrigger>
                   <TooltipContent>
@@ -285,7 +297,7 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
                   <TooltipTrigger asChild>
                     <Label htmlFor={`time-${time}`} className="flex items-center gap-2 cursor-pointer px-2 py-1 -mx-2 rounded-md hover:bg-muted transition-colors">
                       <RadioGroupItem value={time} id={`time-${time}`} />
-                      <span className="text-sm font-normal">{time}</span>
+                      <FilterBadge label={time} />
                     </Label>
                   </TooltipTrigger>
                   <TooltipContent>
