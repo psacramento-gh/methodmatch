@@ -130,7 +130,7 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
                 href={method.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary hover:underline text-sm font-bold"
+                className="block text-primary hover:underline text-sm font-bold"
               >
                 {method.method}
                 <ExternalLink className="h-3 w-3 inline ml-1 align-baseline" />
