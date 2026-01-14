@@ -57,8 +57,8 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Questions</TableHead>
               <SortableHeader label="Method" sortKeyName="method" currentSortKey={sortKey} sortOrder={sortOrder} onSort={onSort} />
+              <TableHead>Questions</TableHead>
               <SortableHeader label="Design Phase" sortKeyName="designPhase" currentSortKey={sortKey} sortOrder={sortOrder} onSort={onSort} />
               <SortableHeader label="Analysis Focus" sortKeyName="analysisFocus" currentSortKey={sortKey} sortOrder={sortOrder} onSort={onSort} />
               <SortableHeader label="Data Collection" sortKeyName="dataCollection" currentSortKey={sortKey} sortOrder={sortOrder} onSort={onSort} />
@@ -70,13 +70,6 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
           <TableBody>
             {methods.map((method, index) => (
               <TableRow key={`${method.method}-${index}`}>
-                <TableCell className="font-medium max-w-xs">
-                  <ul className="list-disc list-inside text-sm space-y-1">
-                    {method.questions.map((q, i) => (
-                      <li key={i} className="text-muted-foreground">{q}</li>
-                    ))}
-                  </ul>
-                </TableCell>
                 <TableCell>
                   <a
                     href={method.link}
@@ -86,6 +79,13 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
                   >
                     {method.method}
                   </a>
+                </TableCell>
+                <TableCell className="font-medium max-w-xs">
+                  <ul className="list-disc list-inside text-sm space-y-1">
+                    {method.questions.map((q, i) => (
+                      <li key={i} className="text-muted-foreground">{q}</li>
+                    ))}
+                  </ul>
                 </TableCell>
                 <TableCell>{method.designPhase}</TableCell>
                 <TableCell>{method.analysisFocus}</TableCell>
@@ -120,14 +120,6 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
             className="bg-card rounded-lg border p-4 shadow-sm space-y-3"
           >
             <div className="space-y-1">
-              <span className="text-xs font-semibold text-muted-foreground">Questions</span>
-              <ul className="list-disc list-inside text-sm space-y-0.5">
-                {method.questions.map((q, i) => (
-                  <li key={i} className="text-muted-foreground">{q}</li>
-                ))}
-              </ul>
-            </div>
-            <div className="space-y-1">
               <span className="text-xs font-semibold text-muted-foreground">Method</span>
               <p>
                 <a
@@ -139,6 +131,14 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
                   {method.method}
                 </a>
               </p>
+            </div>
+            <div className="space-y-1">
+              <span className="text-xs font-semibold text-muted-foreground">Questions</span>
+              <ul className="list-disc list-inside text-sm space-y-0.5">
+                {method.questions.map((q, i) => (
+                  <li key={i} className="text-muted-foreground">{q}</li>
+                ))}
+              </ul>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1">
