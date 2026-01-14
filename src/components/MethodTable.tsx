@@ -69,7 +69,10 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
           </TableHeader>
           <TableBody>
             {methods.map((method, index) => (
-              <TableRow key={`${method.method}-${index}`}>
+              <TableRow 
+                key={`${method.method}-${index}`}
+                className={index % 2 === 0 ? 'bg-muted/30' : ''}
+              >
                 <TableCell>
                   <a
                     href={method.link}
