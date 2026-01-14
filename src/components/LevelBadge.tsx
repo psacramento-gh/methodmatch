@@ -9,15 +9,17 @@ interface LevelBadgeProps {
 export function LevelBadge({ level, type = 'cost' }: LevelBadgeProps) {
   const baseClasses = "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium";
   
+  // Cost/Time badges
   const levelClasses = {
     Low: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400",
     Medium: "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400",
     High: "bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-400",
   };
 
+  // Data Collection badges
   const dataCollectionClasses = {
     Analytic: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400",
-    Empirical: "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400",
+    Empirical: "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400",
   };
 
   const dataCollectionIcons = {
@@ -25,10 +27,11 @@ export function LevelBadge({ level, type = 'cost' }: LevelBadgeProps) {
     Empirical: Users,
   };
 
+  // Design Phase badges
   const designPhaseClasses = {
-    Plan: "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400",
+    Plan: "bg-slate-100 text-slate-800 dark:bg-slate-900/30 dark:text-slate-400",
     Design: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400",
-    Release: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400",
+    Release: "bg-teal-100 text-teal-800 dark:bg-teal-900/30 dark:text-teal-400",
   };
 
   const designPhaseIcons = {
@@ -37,8 +40,9 @@ export function LevelBadge({ level, type = 'cost' }: LevelBadgeProps) {
     Release: Rocket,
   };
 
+  // Analysis Focus badges
   const analysisFocusClasses = {
-    Qualitative: "bg-violet-100 text-violet-800 dark:bg-violet-900/30 dark:text-violet-400",
+    Qualitative: "bg-fuchsia-100 text-fuchsia-800 dark:bg-fuchsia-900/30 dark:text-fuchsia-400",
     Quantitative: "bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-400",
   };
 
