@@ -2,6 +2,7 @@ import { useMethodFilters } from '@/hooks/useMethodFilters';
 import { MethodFilters } from '@/components/MethodFilters';
 import { MethodTable } from '@/components/MethodTable';
 import { ResultsBar } from '@/components/ResultsBar';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 const Index = () => {
   const {
@@ -20,9 +21,12 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background p-5">
       <div className="max-w-[1600px] mx-auto">
-        <h1 className="text-3xl font-bold text-foreground mb-5">
-          MethodMatch: Find the right UX method
-        </h1>
+        <div className="flex items-center justify-between mb-5">
+          <h1 className="text-3xl font-bold text-foreground">
+            MethodMatch: Find the right UX method
+          </h1>
+          <ThemeToggle />
+        </div>
 
         <MethodFilters
           filters={filters}
