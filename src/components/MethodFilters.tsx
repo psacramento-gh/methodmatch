@@ -61,16 +61,18 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
           <Label className="font-semibold text-foreground">Design Phase</Label>
           <div className="flex flex-wrap gap-3">
             {designPhases.map((phase) => (
-              <div key={phase} className="flex items-center space-x-2">
+              <Label
+                key={phase}
+                htmlFor={`phase-${phase}`}
+                className="flex items-center gap-2 cursor-pointer"
+              >
                 <Checkbox
                   id={`phase-${phase}`}
                   checked={filters.designPhase.includes(phase)}
                   onCheckedChange={() => onCheckboxToggle('designPhase', phase)}
                 />
-                <Label htmlFor={`phase-${phase}`} className="text-sm font-normal cursor-pointer">
-                  {phase}
-                </Label>
-              </div>
+                <span className="text-sm font-normal">{phase}</span>
+              </Label>
             ))}
           </div>
         </div>
@@ -80,16 +82,18 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
           <Label className="font-semibold text-foreground">Analysis Focus</Label>
           <div className="flex flex-wrap gap-3">
             {analysisFocuses.map((focus) => (
-              <div key={focus} className="flex items-center space-x-2">
+              <Label
+                key={focus}
+                htmlFor={`focus-${focus}`}
+                className="flex items-center gap-2 cursor-pointer"
+              >
                 <Checkbox
                   id={`focus-${focus}`}
                   checked={filters.analysisFocus.includes(focus)}
                   onCheckedChange={() => onCheckboxToggle('analysisFocus', focus)}
                 />
-                <Label htmlFor={`focus-${focus}`} className="text-sm font-normal cursor-pointer">
-                  {focus}
-                </Label>
-              </div>
+                <span className="text-sm font-normal">{focus}</span>
+              </Label>
             ))}
           </div>
         </div>
@@ -102,17 +106,15 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
             onValueChange={(value) => onFilterChange('dataCollection', value === 'all' ? '' : value)}
             className="flex flex-wrap gap-3"
           >
-            <div className="flex items-center space-x-2">
+            <Label htmlFor="dc-all" className="flex items-center gap-2 cursor-pointer">
               <RadioGroupItem value="all" id="dc-all" />
-              <Label htmlFor="dc-all" className="text-sm font-normal cursor-pointer">All</Label>
-            </div>
+              <span className="text-sm font-normal">All</span>
+            </Label>
             {dataCollections.map((dc) => (
-              <div key={dc} className="flex items-center space-x-2">
+              <Label key={dc} htmlFor={`dc-${dc}`} className="flex items-center gap-2 cursor-pointer">
                 <RadioGroupItem value={dc} id={`dc-${dc}`} />
-                <Label htmlFor={`dc-${dc}`} className="text-sm font-normal cursor-pointer">
-                  {dc}
-                </Label>
-              </div>
+                <span className="text-sm font-normal">{dc}</span>
+              </Label>
             ))}
           </RadioGroup>
         </div>
@@ -125,17 +127,15 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
             onValueChange={(value) => onFilterChange('cost', value === 'all' ? '' : value)}
             className="flex flex-wrap gap-3"
           >
-            <div className="flex items-center space-x-2">
+            <Label htmlFor="cost-all" className="flex items-center gap-2 cursor-pointer">
               <RadioGroupItem value="all" id="cost-all" />
-              <Label htmlFor="cost-all" className="text-sm font-normal cursor-pointer">All</Label>
-            </div>
+              <span className="text-sm font-normal">All</span>
+            </Label>
             {costs.map((cost) => (
-              <div key={cost} className="flex items-center space-x-2">
+              <Label key={cost} htmlFor={`cost-${cost}`} className="flex items-center gap-2 cursor-pointer">
                 <RadioGroupItem value={cost} id={`cost-${cost}`} />
-                <Label htmlFor={`cost-${cost}`} className="text-sm font-normal cursor-pointer">
-                  {cost}
-                </Label>
-              </div>
+                <span className="text-sm font-normal">{cost}</span>
+              </Label>
             ))}
           </RadioGroup>
         </div>
@@ -148,17 +148,15 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
             onValueChange={(value) => onFilterChange('time', value === 'all' ? '' : value)}
             className="flex flex-wrap gap-3"
           >
-            <div className="flex items-center space-x-2">
+            <Label htmlFor="time-all" className="flex items-center gap-2 cursor-pointer">
               <RadioGroupItem value="all" id="time-all" />
-              <Label htmlFor="time-all" className="text-sm font-normal cursor-pointer">All</Label>
-            </div>
+              <span className="text-sm font-normal">All</span>
+            </Label>
             {times.map((time) => (
-              <div key={time} className="flex items-center space-x-2">
+              <Label key={time} htmlFor={`time-${time}`} className="flex items-center gap-2 cursor-pointer">
                 <RadioGroupItem value={time} id={`time-${time}`} />
-                <Label htmlFor={`time-${time}`} className="text-sm font-normal cursor-pointer">
-                  {time}
-                </Label>
-              </div>
+                <span className="text-sm font-normal">{time}</span>
+              </Label>
             ))}
           </RadioGroup>
         </div>
