@@ -37,14 +37,7 @@ export function LevelBadge({ level, type = 'cost' }: LevelBadgeProps) {
     Release: Rocket,
   };
 
-  const levelIcons = {
-    Low: "●",
-    Medium: "●●",
-    High: "●●●",
-  };
-
   let colorClass: string;
-  let icon: string = "";
   let IconComponent: typeof Brain | typeof Users | typeof Pencil | typeof PenTool | typeof Rocket | null = null;
 
   if (type === 'dataCollection') {
@@ -56,13 +49,11 @@ export function LevelBadge({ level, type = 'cost' }: LevelBadgeProps) {
   } else {
     const validLevel = level as keyof typeof levelClasses;
     colorClass = levelClasses[validLevel] || levelClasses.Medium;
-    icon = levelIcons[validLevel] || "";
   }
 
   return (
     <span className={cn(baseClasses, colorClass)}>
       {IconComponent && <IconComponent className="mr-1 h-3 w-3" />}
-      {icon && <span className="mr-1 text-[8px] opacity-70">{icon}</span>}
       {level}
     </span>
   );
