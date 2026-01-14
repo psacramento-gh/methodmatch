@@ -1,4 +1,4 @@
-import { ChevronUp, ChevronDown } from 'lucide-react';
+import { ChevronUp, ChevronDown, ExternalLink } from 'lucide-react';
 import {
   Table,
   TableBody,
@@ -75,9 +75,10 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
                     href={method.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-primary hover:underline"
+                    className="text-primary hover:underline font-bold inline-flex items-center gap-1"
                   >
                     {method.method}
+                    <ExternalLink className="h-3 w-3" />
                   </a>
                 </TableCell>
               <TableCell className="max-w-xs">
@@ -121,16 +122,15 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
           >
             <div className="space-y-1">
               <span className="text-xs font-semibold text-muted-foreground">Method</span>
-              <p>
-                <a
-                  href={method.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary hover:underline text-sm"
-                >
-                  {method.method}
-                </a>
-              </p>
+              <a
+                href={method.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline text-sm font-bold inline-flex items-center gap-1"
+              >
+                {method.method}
+                <ExternalLink className="h-3 w-3" />
+              </a>
             </div>
             <div className="space-y-1">
               <span className="text-xs font-semibold text-muted-foreground">Questions</span>
