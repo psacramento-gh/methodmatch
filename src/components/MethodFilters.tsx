@@ -24,18 +24,23 @@ import {
   getUniqueTime,
 } from '@/data/methods';
 import { Filters } from '@/hooks/useMethodFilters';
-import { badgeColors } from '@/components/LevelBadge';
+import { badgeColors, badgeIcons } from '@/components/LevelBadge';
 import { cn } from '@/lib/utils';
 
-// Mini badge component for filter options
-const FilterBadge = ({ label }: { label: string }) => (
-  <span className={cn(
-    "inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium",
-    badgeColors[label]
-  )}>
-    {label}
-  </span>
-);
+// Mini badge component for filter options with icons
+const FilterBadge = ({ label }: { label: string }) => {
+  const IconComponent = badgeIcons[label];
+  
+  return (
+    <span className={cn(
+      "inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium",
+      badgeColors[label]
+    )}>
+      {IconComponent && <IconComponent className="mr-1 h-3 w-3" />}
+      {label}
+    </span>
+  );
+};
 
 const FILTER_TOOLTIPS: Record<string, string> = {
   // Category descriptions (for info icons)

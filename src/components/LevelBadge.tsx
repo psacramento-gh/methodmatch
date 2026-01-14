@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import { Brain, Users, Pencil, PenTool, Rocket, MessageCircle, ChartNoAxesColumn } from 'lucide-react';
+import { Brain, Users, Pencil, PenTool, Rocket, MessageCircle, ChartNoAxesColumn, LucideIcon } from 'lucide-react';
 
 // Export color classes for reuse in filters
 export const badgeColors: Record<string, string> = {
@@ -17,6 +17,24 @@ export const badgeColors: Record<string, string> = {
   // Analysis Focus
   Qualitative: "bg-fuchsia-100 text-fuchsia-800 dark:bg-fuchsia-900/30 dark:text-fuchsia-400",
   Quantitative: "bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-400",
+};
+
+// Export icons for reuse in filters
+export const badgeIcons: Record<string, LucideIcon | null> = {
+  // Cost/Time (no icons)
+  Low: null,
+  Medium: null,
+  High: null,
+  // Data Collection
+  Analytic: Brain,
+  Empirical: Users,
+  // Design Phase
+  Plan: Pencil,
+  Design: PenTool,
+  Release: Rocket,
+  // Analysis Focus
+  Qualitative: MessageCircle,
+  Quantitative: ChartNoAxesColumn,
 };
 
 interface LevelBadgeProps {
