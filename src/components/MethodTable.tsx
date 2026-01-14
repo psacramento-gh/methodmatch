@@ -25,14 +25,15 @@ interface SortableHeaderProps {
   currentSortKey: SortKey;
   sortOrder: SortOrder;
   onSort: (key: SortKey) => void;
+  className?: string;
 }
 
-function SortableHeader({ label, sortKeyName, currentSortKey, sortOrder, onSort }: SortableHeaderProps) {
+function SortableHeader({ label, sortKeyName, currentSortKey, sortOrder, onSort, className }: SortableHeaderProps) {
   const isActive = currentSortKey === sortKeyName;
 
   return (
     <TableHead
-      className="cursor-pointer select-none hover:bg-muted/50 transition-colors"
+      className={`cursor-pointer select-none hover:bg-muted/50 transition-colors ${className || ''}`}
       onClick={() => onSort(sortKeyName)}
     >
       <div className="flex items-center gap-1">
@@ -54,17 +55,17 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
     <>
       {/* Desktop Table */}
       <div className="hidden md:block">
-        <Table>
+        <Table className="table-fixed">
           <TableHeader>
             <TableRow>
-              <SortableHeader label="Method" sortKeyName="method" currentSortKey={sortKey} sortOrder={sortOrder} onSort={onSort} />
-              <TableHead>Questions</TableHead>
-              <SortableHeader label="Design Phase" sortKeyName="designPhase" currentSortKey={sortKey} sortOrder={sortOrder} onSort={onSort} />
-              <SortableHeader label="Analysis Focus" sortKeyName="analysisFocus" currentSortKey={sortKey} sortOrder={sortOrder} onSort={onSort} />
-              <SortableHeader label="Data Collection" sortKeyName="dataCollection" currentSortKey={sortKey} sortOrder={sortOrder} onSort={onSort} />
-              <SortableHeader label="Cost" sortKeyName="cost" currentSortKey={sortKey} sortOrder={sortOrder} onSort={onSort} />
-              <SortableHeader label="Time" sortKeyName="time" currentSortKey={sortKey} sortOrder={sortOrder} onSort={onSort} />
-              <TableHead>Description</TableHead>
+              <SortableHeader label="Method" sortKeyName="method" currentSortKey={sortKey} sortOrder={sortOrder} onSort={onSort} className="w-[12%]" />
+              <TableHead className="w-[18%]">Questions</TableHead>
+              <SortableHeader label="Design Phase" sortKeyName="designPhase" currentSortKey={sortKey} sortOrder={sortOrder} onSort={onSort} className="w-[10%]" />
+              <SortableHeader label="Analysis Focus" sortKeyName="analysisFocus" currentSortKey={sortKey} sortOrder={sortOrder} onSort={onSort} className="w-[10%]" />
+              <SortableHeader label="Data Collection" sortKeyName="dataCollection" currentSortKey={sortKey} sortOrder={sortOrder} onSort={onSort} className="w-[10%]" />
+              <SortableHeader label="Cost" sortKeyName="cost" currentSortKey={sortKey} sortOrder={sortOrder} onSort={onSort} className="w-[7%]" />
+              <SortableHeader label="Time" sortKeyName="time" currentSortKey={sortKey} sortOrder={sortOrder} onSort={onSort} className="w-[7%]" />
+              <TableHead className="w-[26%]">Description</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
