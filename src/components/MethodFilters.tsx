@@ -69,7 +69,7 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
         {/* Row 1: Question, Design Phase, Analysis Focus */}
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
           {/* Question Dropdown */}
-          <div className="space-y-2">
+          <div className="space-y-2 p-3 rounded-lg border border-border/40 hover:border-border hover:bg-muted/20 transition-colors">
             <Label className="font-semibold text-foreground">Question</Label>
             <Select
               value={filters.question}
@@ -90,7 +90,7 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
           </div>
 
           {/* Design Phase Checkboxes */}
-          <div className="space-y-2">
+          <div className="space-y-2 p-3 rounded-lg border border-border/40 hover:border-border hover:bg-muted/20 transition-colors">
             <Label className="font-semibold text-foreground">Design Phase</Label>
             <div className="flex flex-wrap gap-3">
               {designPhases.map((phase) => (
@@ -117,7 +117,7 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
           </div>
 
           {/* Analysis Focus Checkboxes */}
-          <div className="space-y-2">
+          <div className="space-y-2 p-3 rounded-lg border border-border/40 hover:border-border hover:bg-muted/20 transition-colors">
             <Label className="font-semibold text-foreground">Analysis Focus</Label>
             <div className="flex flex-wrap gap-3">
               {analysisFocuses.map((focus) => (
@@ -147,7 +147,7 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
         {/* Row 2: Data Collection, Cost, Time */}
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
           {/* Data Collection Radio */}
-          <div className="space-y-2">
+          <div className="space-y-2 p-3 rounded-lg border border-border/40 hover:border-border hover:bg-muted/20 transition-colors">
             <Label className="font-semibold text-foreground">Data Collection</Label>
             <RadioGroup
               value={filters.dataCollection || 'all'}
@@ -175,7 +175,7 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
           </div>
 
           {/* Cost Radio */}
-          <div className="space-y-2">
+          <div className="space-y-2 p-3 rounded-lg border border-border/40 hover:border-border hover:bg-muted/20 transition-colors">
             <Label className="font-semibold text-foreground">Cost</Label>
             <RadioGroup
               value={filters.cost || 'all'}
@@ -203,7 +203,7 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
           </div>
 
           {/* Time Radio */}
-          <div className="space-y-2">
+          <div className="space-y-2 p-3 rounded-lg border border-border/40 hover:border-border hover:bg-muted/20 transition-colors">
             <Label className="font-semibold text-foreground">Time</Label>
             <RadioGroup
               value={filters.time || 'all'}
