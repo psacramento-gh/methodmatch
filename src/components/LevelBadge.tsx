@@ -1,9 +1,9 @@
 import { cn } from '@/lib/utils';
-import { Brain, Users } from 'lucide-react';
+import { Brain, Users, Pencil, PenTool, Rocket } from 'lucide-react';
 
 interface LevelBadgeProps {
-  level: 'Low' | 'Medium' | 'High' | 'Analytic' | 'Empirical' | string;
-  type?: 'cost' | 'time' | 'dataCollection';
+  level: 'Low' | 'Medium' | 'High' | 'Analytic' | 'Empirical' | 'Plan' | 'Design' | 'Release' | string;
+  type?: 'cost' | 'time' | 'dataCollection' | 'designPhase';
 }
 
 export function LevelBadge({ level, type = 'cost' }: LevelBadgeProps) {
@@ -25,6 +25,18 @@ export function LevelBadge({ level, type = 'cost' }: LevelBadgeProps) {
     Empirical: Users,
   };
 
+  const designPhaseClasses = {
+    Plan: "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400",
+    Design: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400",
+    Release: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400",
+  };
+
+  const designPhaseIcons = {
+    Plan: Pencil,
+    Design: PenTool,
+    Release: Rocket,
+  };
+
   const levelIcons = {
     Low: "●",
     Medium: "●●",
@@ -33,11 +45,14 @@ export function LevelBadge({ level, type = 'cost' }: LevelBadgeProps) {
 
   let colorClass: string;
   let icon: string = "";
-  let IconComponent: typeof Brain | typeof Users | null = null;
+  let IconComponent: typeof Brain | typeof Users | typeof Pencil | typeof PenTool | typeof Rocket | null = null;
 
   if (type === 'dataCollection') {
     colorClass = dataCollectionClasses[level as keyof typeof dataCollectionClasses] || dataCollectionClasses.Analytic;
     IconComponent = dataCollectionIcons[level as keyof typeof dataCollectionIcons] || null;
+  } else if (type === 'designPhase') {
+    colorClass = designPhaseClasses[level as keyof typeof designPhaseClasses] || designPhaseClasses.Plan;
+    IconComponent = designPhaseIcons[level as keyof typeof designPhaseIcons] || null;
   } else {
     const validLevel = level as keyof typeof levelClasses;
     colorClass = levelClasses[validLevel] || levelClasses.Medium;
