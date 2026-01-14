@@ -1,3 +1,5 @@
+import { Search } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -33,7 +35,19 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
   const times = getUniqueTime();
 
   return (
-    <div className="bg-card rounded-lg p-5 shadow-sm border mb-5">
+    <div className="bg-card rounded-lg p-5 shadow-sm border mb-5 space-y-5">
+      {/* Search Input */}
+      <div className="relative">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <Input
+          type="text"
+          placeholder="Search methods by name or description..."
+          value={filters.searchQuery}
+          onChange={(e) => onFilterChange('searchQuery', e.target.value)}
+          className="pl-10"
+        />
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-5">
         {/* Question Dropdown */}
         <div className="space-y-2">
