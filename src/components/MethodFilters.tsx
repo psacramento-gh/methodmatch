@@ -66,7 +66,8 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
   return (
     <TooltipProvider>
       <div className="bg-card rounded-lg p-5 shadow-sm border mb-5 space-y-5">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-5">
+        {/* Row 1: Question, Design Phase, Analysis Focus */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
           {/* Question Dropdown */}
           <div className="space-y-2">
             <Label className="font-semibold text-foreground">Question</Label>
@@ -141,7 +142,10 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
               ))}
             </div>
           </div>
+        </div>
 
+        {/* Row 2: Data Collection, Cost, Time */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
           {/* Data Collection Radio */}
           <div className="space-y-2">
             <Label className="font-semibold text-foreground">Data Collection</Label>
