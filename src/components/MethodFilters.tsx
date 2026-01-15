@@ -102,7 +102,7 @@ export function MethodFilters({ filters, availableOptions, onFilterChange, onChe
 
   return (
     <TooltipProvider>
-      <div className="bg-card rounded-lg p-5 shadow-sm border mb-5">
+      <div className="bg-muted/50 rounded-lg p-5 shadow-sm border mb-8">
         {/* All filters in a single unified grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {/* Question Dropdown */}
