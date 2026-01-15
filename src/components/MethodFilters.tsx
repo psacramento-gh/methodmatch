@@ -16,6 +16,12 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import {
+  HybridTooltip,
+  HybridTooltipContent,
+  HybridTooltipProvider,
+  HybridTooltipTrigger,
+} from '@/components/ui/hybrid-tooltip';
+import {
   getUniqueQuestions,
   getUniqueDesignPhases,
   getUniqueAnalysisFocus,
@@ -101,23 +107,24 @@ export function MethodFilters({ filters, availableOptions, onFilterChange, onChe
   const times = getUniqueTime();
 
   return (
-    <TooltipProvider>
-      <div className="bg-muted/50 rounded-lg p-5 shadow-sm border mb-8">
-        {/* All filters in a single unified grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {/* Question Dropdown */}
-          <div className="space-y-2 p-3 rounded-lg border border-border/40 hover:border-border hover:bg-muted/20 transition-colors">
-            <Label className="font-semibold text-foreground flex items-center gap-1.5">
-              Question
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p className="max-w-xs">{FILTER_TOOLTIPS['Question-info']}</p>
-                </TooltipContent>
-              </Tooltip>
-            </Label>
+    <HybridTooltipProvider>
+      <TooltipProvider>
+        <div className="bg-muted/50 rounded-lg p-5 shadow-sm border mb-8">
+          {/* All filters in a single unified grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {/* Question Dropdown */}
+            <div className="space-y-2 p-3 rounded-lg border border-border/40 hover:border-border hover:bg-muted/20 transition-colors">
+              <Label className="font-semibold text-foreground flex items-center gap-1.5">
+                Question
+                <HybridTooltip>
+                  <HybridTooltipTrigger asChild>
+                    <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
+                  </HybridTooltipTrigger>
+                  <HybridTooltipContent>
+                    <p className="max-w-xs">{FILTER_TOOLTIPS['Question-info']}</p>
+                  </HybridTooltipContent>
+                </HybridTooltip>
+              </Label>
             <Select
               value={filters.question}
               onValueChange={(value) => onFilterChange('question', value === 'all' ? '' : value)}
@@ -145,18 +152,18 @@ export function MethodFilters({ filters, availableOptions, onFilterChange, onChe
             </Select>
           </div>
 
-          {/* Design Phase Checkboxes */}
-          <div className="space-y-2 p-3 rounded-lg border border-border/40 hover:border-border hover:bg-muted/20 transition-colors">
-            <Label className="font-semibold text-foreground flex items-center gap-1.5">
-              Design Phase
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p className="max-w-xs">{FILTER_TOOLTIPS['Design Phase-info']}</p>
-                </TooltipContent>
-              </Tooltip>
+            {/* Design Phase Checkboxes */}
+            <div className="space-y-2 p-3 rounded-lg border border-border/40 hover:border-border hover:bg-muted/20 transition-colors">
+              <Label className="font-semibold text-foreground flex items-center gap-1.5">
+                Design Phase
+                <HybridTooltip>
+                  <HybridTooltipTrigger asChild>
+                    <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
+                  </HybridTooltipTrigger>
+                  <HybridTooltipContent>
+                    <p className="max-w-xs">{FILTER_TOOLTIPS['Design Phase-info']}</p>
+                  </HybridTooltipContent>
+                </HybridTooltip>
             </Label>
             <div className="flex flex-wrap gap-3">
               {designPhases.map((phase) => {
@@ -191,18 +198,18 @@ export function MethodFilters({ filters, availableOptions, onFilterChange, onChe
             </div>
           </div>
 
-          {/* Analysis Focus Checkboxes */}
-          <div className="space-y-2 p-3 rounded-lg border border-border/40 hover:border-border hover:bg-muted/20 transition-colors">
-            <Label className="font-semibold text-foreground flex items-center gap-1.5">
-              Analysis Focus
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p className="max-w-xs">{FILTER_TOOLTIPS['Analysis Focus-info']}</p>
-                </TooltipContent>
-              </Tooltip>
+            {/* Analysis Focus Checkboxes */}
+            <div className="space-y-2 p-3 rounded-lg border border-border/40 hover:border-border hover:bg-muted/20 transition-colors">
+              <Label className="font-semibold text-foreground flex items-center gap-1.5">
+                Analysis Focus
+                <HybridTooltip>
+                  <HybridTooltipTrigger asChild>
+                    <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
+                  </HybridTooltipTrigger>
+                  <HybridTooltipContent>
+                    <p className="max-w-xs">{FILTER_TOOLTIPS['Analysis Focus-info']}</p>
+                  </HybridTooltipContent>
+                </HybridTooltip>
             </Label>
             <div className="flex flex-wrap gap-3">
               {analysisFocuses.map((focus) => {
@@ -237,18 +244,18 @@ export function MethodFilters({ filters, availableOptions, onFilterChange, onChe
             </div>
           </div>
 
-          {/* Data Collection Radio */}
-          <div className="space-y-2 p-3 rounded-lg border border-border/40 hover:border-border hover:bg-muted/20 transition-colors">
-            <Label className="font-semibold text-foreground flex items-center gap-1.5">
-              Data Collection
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p className="max-w-xs">{FILTER_TOOLTIPS['Data Collection-info']}</p>
-                </TooltipContent>
-              </Tooltip>
+            {/* Data Collection Radio */}
+            <div className="space-y-2 p-3 rounded-lg border border-border/40 hover:border-border hover:bg-muted/20 transition-colors">
+              <Label className="font-semibold text-foreground flex items-center gap-1.5">
+                Data Collection
+                <HybridTooltip>
+                  <HybridTooltipTrigger asChild>
+                    <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
+                  </HybridTooltipTrigger>
+                  <HybridTooltipContent>
+                    <p className="max-w-xs">{FILTER_TOOLTIPS['Data Collection-info']}</p>
+                  </HybridTooltipContent>
+                </HybridTooltip>
             </Label>
             <RadioGroup
               value={filters.dataCollection || 'all'}
@@ -286,18 +293,18 @@ export function MethodFilters({ filters, availableOptions, onFilterChange, onChe
             </RadioGroup>
           </div>
 
-          {/* Cost Radio */}
-          <div className="space-y-2 p-3 rounded-lg border border-border/40 hover:border-border hover:bg-muted/20 transition-colors">
-            <Label className="font-semibold text-foreground flex items-center gap-1.5">
-              Cost
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p className="max-w-xs">{FILTER_TOOLTIPS['Cost-info']}</p>
-                </TooltipContent>
-              </Tooltip>
+            {/* Cost Radio */}
+            <div className="space-y-2 p-3 rounded-lg border border-border/40 hover:border-border hover:bg-muted/20 transition-colors">
+              <Label className="font-semibold text-foreground flex items-center gap-1.5">
+                Cost
+                <HybridTooltip>
+                  <HybridTooltipTrigger asChild>
+                    <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
+                  </HybridTooltipTrigger>
+                  <HybridTooltipContent>
+                    <p className="max-w-xs">{FILTER_TOOLTIPS['Cost-info']}</p>
+                  </HybridTooltipContent>
+                </HybridTooltip>
             </Label>
             <RadioGroup
               value={filters.cost || 'all'}
@@ -335,18 +342,18 @@ export function MethodFilters({ filters, availableOptions, onFilterChange, onChe
             </RadioGroup>
           </div>
 
-          {/* Time Radio */}
-          <div className="space-y-2 p-3 rounded-lg border border-border/40 hover:border-border hover:bg-muted/20 transition-colors">
-            <Label className="font-semibold text-foreground flex items-center gap-1.5">
-              Time
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p className="max-w-xs">{FILTER_TOOLTIPS['Time-info']}</p>
-                </TooltipContent>
-              </Tooltip>
+            {/* Time Radio */}
+            <div className="space-y-2 p-3 rounded-lg border border-border/40 hover:border-border hover:bg-muted/20 transition-colors">
+              <Label className="font-semibold text-foreground flex items-center gap-1.5">
+                Time
+                <HybridTooltip>
+                  <HybridTooltipTrigger asChild>
+                    <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
+                  </HybridTooltipTrigger>
+                  <HybridTooltipContent>
+                    <p className="max-w-xs">{FILTER_TOOLTIPS['Time-info']}</p>
+                  </HybridTooltipContent>
+                </HybridTooltip>
             </Label>
             <RadioGroup
               value={filters.time || 'all'}
@@ -383,8 +390,9 @@ export function MethodFilters({ filters, availableOptions, onFilterChange, onChe
               })}
             </RadioGroup>
           </div>
+          </div>
         </div>
-      </div>
-    </TooltipProvider>
+      </TooltipProvider>
+    </HybridTooltipProvider>
   );
 }
