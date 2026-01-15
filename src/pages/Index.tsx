@@ -15,7 +15,8 @@ const Index = () => {
     sortOrder,
     handleSort,
     filteredMethods,
-    totalMethods
+    totalMethods,
+    availableOptions
   } = useMethodFilters();
   return <div className="min-h-screen bg-background p-5">
       <div className="max-w-[1600px] mx-auto">
@@ -29,7 +30,7 @@ const Index = () => {
           <ThemeToggle />
         </div>
 
-        <MethodFilters filters={filters} onFilterChange={updateFilter} onCheckboxToggle={toggleCheckboxFilter} />
+        <MethodFilters filters={filters} availableOptions={availableOptions} onFilterChange={updateFilter} onCheckboxToggle={toggleCheckboxFilter} />
 
         <ResultsBar filteredCount={filteredMethods.length} totalCount={totalMethods} hasActiveFilters={hasActiveFilters} onClearFilters={clearAllFilters} />
 

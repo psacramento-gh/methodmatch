@@ -28,13 +28,14 @@ import { badgeColors, badgeIcons } from '@/components/LevelBadge';
 import { cn } from '@/lib/utils';
 
 // Mini badge component for filter options with icons
-const FilterBadge = ({ label }: { label: string }) => {
+const FilterBadge = ({ label, disabled = false }: { label: string; disabled?: boolean }) => {
   const IconComponent = badgeIcons[label];
   
   return (
     <span className={cn(
-      "inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium",
-      badgeColors[label]
+      "inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium transition-opacity",
+      badgeColors[label],
+      disabled && "opacity-40"
     )}>
       {IconComponent && <IconComponent className="mr-1 h-3 w-3" />}
       {label}
@@ -75,13 +76,23 @@ const FILTER_TOOLTIPS: Record<string, string> = {
   'Time-High': 'Long-term studies or complex benchmarks that may take over a month to complete.',
 };
 
+export interface AvailableOptions {
+  questions: string[];
+  designPhase: string[];
+  analysisFocus: string[];
+  dataCollection: string[];
+  cost: string[];
+  time: string[];
+}
+
 interface MethodFiltersProps {
   filters: Filters;
+  availableOptions: AvailableOptions;
   onFilterChange: <K extends keyof Filters>(key: K, value: Filters[K]) => void;
   onCheckboxToggle: (key: 'designPhase' | 'analysisFocus', value: string) => void;
 }
 
-export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: MethodFiltersProps) {
+export function MethodFilters({ filters, availableOptions, onFilterChange, onCheckboxToggle }: MethodFiltersProps) {
   const questions = getUniqueQuestions();
   const designPhases = getUniqueDesignPhases();
   const analysisFocuses = getUniqueAnalysisFocus();
@@ -116,11 +127,20 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All</SelectItem>
-                {questions.map((q) => (
-                  <SelectItem key={q} value={q}>
-                    {q}
-                  </SelectItem>
-                ))}
+                {questions.map((q) => {
+                  const isAvailable = availableOptions.questions.includes(q);
+                  const isSelected = filters.question === q;
+                  return (
+                    <SelectItem 
+                      key={q} 
+                      value={q} 
+                      disabled={!isAvailable && !isSelected}
+                      className={cn(!isAvailable && !isSelected && "opacity-40")}
+                    >
+                      {q}
+                    </SelectItem>
+                  );
+                })}
               </SelectContent>
             </Select>
           </div>
@@ -139,26 +159,35 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
               </Tooltip>
             </Label>
             <div className="flex flex-wrap gap-3">
-              {designPhases.map((phase) => (
-                <Tooltip key={phase}>
-                  <TooltipTrigger asChild>
-                    <Label
-                      htmlFor={`phase-${phase}`}
-                      className="flex items-center gap-2 cursor-pointer px-2 py-1 -mx-2 rounded-md hover:bg-muted transition-colors"
-                    >
-                      <Checkbox
-                        id={`phase-${phase}`}
-                        checked={filters.designPhase.includes(phase)}
-                        onCheckedChange={() => onCheckboxToggle('designPhase', phase)}
-                      />
-                      <FilterBadge label={phase} />
-                    </Label>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p className="max-w-xs">{FILTER_TOOLTIPS[phase]}</p>
-                  </TooltipContent>
-                </Tooltip>
-              ))}
+              {designPhases.map((phase) => {
+                const isAvailable = availableOptions.designPhase.includes(phase);
+                const isSelected = filters.designPhase.includes(phase);
+                const isDisabled = !isAvailable && !isSelected;
+                return (
+                  <Tooltip key={phase}>
+                    <TooltipTrigger asChild>
+                      <Label
+                        htmlFor={`phase-${phase}`}
+                        className={cn(
+                          "flex items-center gap-2 px-2 py-1 -mx-2 rounded-md transition-colors",
+                          isDisabled ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:bg-muted"
+                        )}
+                      >
+                        <Checkbox
+                          id={`phase-${phase}`}
+                          checked={isSelected}
+                          onCheckedChange={() => onCheckboxToggle('designPhase', phase)}
+                          disabled={isDisabled}
+                        />
+                        <FilterBadge label={phase} disabled={isDisabled} />
+                      </Label>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p className="max-w-xs">{FILTER_TOOLTIPS[phase]}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                );
+              })}
             </div>
           </div>
 
@@ -176,26 +205,35 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
               </Tooltip>
             </Label>
             <div className="flex flex-wrap gap-3">
-              {analysisFocuses.map((focus) => (
-                <Tooltip key={focus}>
-                  <TooltipTrigger asChild>
-                    <Label
-                      htmlFor={`focus-${focus}`}
-                      className="flex items-center gap-2 cursor-pointer px-2 py-1 -mx-2 rounded-md hover:bg-muted transition-colors"
-                    >
-                      <Checkbox
-                        id={`focus-${focus}`}
-                        checked={filters.analysisFocus.includes(focus)}
-                        onCheckedChange={() => onCheckboxToggle('analysisFocus', focus)}
-                      />
-                      <FilterBadge label={focus} />
-                    </Label>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p className="max-w-xs">{FILTER_TOOLTIPS[focus]}</p>
-                  </TooltipContent>
-                </Tooltip>
-              ))}
+              {analysisFocuses.map((focus) => {
+                const isAvailable = availableOptions.analysisFocus.includes(focus);
+                const isSelected = filters.analysisFocus.includes(focus);
+                const isDisabled = !isAvailable && !isSelected;
+                return (
+                  <Tooltip key={focus}>
+                    <TooltipTrigger asChild>
+                      <Label
+                        htmlFor={`focus-${focus}`}
+                        className={cn(
+                          "flex items-center gap-2 px-2 py-1 -mx-2 rounded-md transition-colors",
+                          isDisabled ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:bg-muted"
+                        )}
+                      >
+                        <Checkbox
+                          id={`focus-${focus}`}
+                          checked={isSelected}
+                          onCheckedChange={() => onCheckboxToggle('analysisFocus', focus)}
+                          disabled={isDisabled}
+                        />
+                        <FilterBadge label={focus} disabled={isDisabled} />
+                      </Label>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p className="max-w-xs">{FILTER_TOOLTIPS[focus]}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                );
+              })}
             </div>
           </div>
 
@@ -221,19 +259,30 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
                 <RadioGroupItem value="all" id="dc-all" />
                 <span className="text-sm font-normal">All</span>
               </Label>
-              {dataCollections.map((dc) => (
-                <Tooltip key={dc}>
-                  <TooltipTrigger asChild>
-                    <Label htmlFor={`dc-${dc}`} className="flex items-center gap-2 cursor-pointer px-2 py-1 -mx-2 rounded-md hover:bg-muted transition-colors">
-                      <RadioGroupItem value={dc} id={`dc-${dc}`} />
-                      <FilterBadge label={dc} />
-                    </Label>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p className="max-w-xs">{FILTER_TOOLTIPS[dc]}</p>
-                  </TooltipContent>
-                </Tooltip>
-              ))}
+              {dataCollections.map((dc) => {
+                const isAvailable = availableOptions.dataCollection.includes(dc);
+                const isSelected = filters.dataCollection === dc;
+                const isDisabled = !isAvailable && !isSelected;
+                return (
+                  <Tooltip key={dc}>
+                    <TooltipTrigger asChild>
+                      <Label 
+                        htmlFor={`dc-${dc}`} 
+                        className={cn(
+                          "flex items-center gap-2 px-2 py-1 -mx-2 rounded-md transition-colors",
+                          isDisabled ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:bg-muted"
+                        )}
+                      >
+                        <RadioGroupItem value={dc} id={`dc-${dc}`} disabled={isDisabled} />
+                        <FilterBadge label={dc} disabled={isDisabled} />
+                      </Label>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p className="max-w-xs">{FILTER_TOOLTIPS[dc]}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                );
+              })}
             </RadioGroup>
           </div>
 
@@ -259,19 +308,30 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
                 <RadioGroupItem value="all" id="cost-all" />
                 <span className="text-sm font-normal">All</span>
               </Label>
-              {costs.map((cost) => (
-                <Tooltip key={cost}>
-                  <TooltipTrigger asChild>
-                    <Label htmlFor={`cost-${cost}`} className="flex items-center gap-2 cursor-pointer px-2 py-1 -mx-2 rounded-md hover:bg-muted transition-colors">
-                      <RadioGroupItem value={cost} id={`cost-${cost}`} />
-                      <FilterBadge label={cost} />
-                    </Label>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p className="max-w-xs">{FILTER_TOOLTIPS[`Cost-${cost}`]}</p>
-                  </TooltipContent>
-                </Tooltip>
-              ))}
+              {costs.map((cost) => {
+                const isAvailable = availableOptions.cost.includes(cost);
+                const isSelected = filters.cost === cost;
+                const isDisabled = !isAvailable && !isSelected;
+                return (
+                  <Tooltip key={cost}>
+                    <TooltipTrigger asChild>
+                      <Label 
+                        htmlFor={`cost-${cost}`} 
+                        className={cn(
+                          "flex items-center gap-2 px-2 py-1 -mx-2 rounded-md transition-colors",
+                          isDisabled ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:bg-muted"
+                        )}
+                      >
+                        <RadioGroupItem value={cost} id={`cost-${cost}`} disabled={isDisabled} />
+                        <FilterBadge label={cost} disabled={isDisabled} />
+                      </Label>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p className="max-w-xs">{FILTER_TOOLTIPS[`Cost-${cost}`]}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                );
+              })}
             </RadioGroup>
           </div>
 
@@ -297,19 +357,30 @@ export function MethodFilters({ filters, onFilterChange, onCheckboxToggle }: Met
                 <RadioGroupItem value="all" id="time-all" />
                 <span className="text-sm font-normal">All</span>
               </Label>
-              {times.map((time) => (
-                <Tooltip key={time}>
-                  <TooltipTrigger asChild>
-                    <Label htmlFor={`time-${time}`} className="flex items-center gap-2 cursor-pointer px-2 py-1 -mx-2 rounded-md hover:bg-muted transition-colors">
-                      <RadioGroupItem value={time} id={`time-${time}`} />
-                      <FilterBadge label={time} />
-                    </Label>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p className="max-w-xs">{FILTER_TOOLTIPS[`Time-${time}`]}</p>
-                  </TooltipContent>
-                </Tooltip>
-              ))}
+              {times.map((time) => {
+                const isAvailable = availableOptions.time.includes(time);
+                const isSelected = filters.time === time;
+                const isDisabled = !isAvailable && !isSelected;
+                return (
+                  <Tooltip key={time}>
+                    <TooltipTrigger asChild>
+                      <Label 
+                        htmlFor={`time-${time}`} 
+                        className={cn(
+                          "flex items-center gap-2 px-2 py-1 -mx-2 rounded-md transition-colors",
+                          isDisabled ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:bg-muted"
+                        )}
+                      >
+                        <RadioGroupItem value={time} id={`time-${time}`} disabled={isDisabled} />
+                        <FilterBadge label={time} disabled={isDisabled} />
+                      </Label>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p className="max-w-xs">{FILTER_TOOLTIPS[`Time-${time}`]}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                );
+              })}
             </RadioGroup>
           </div>
         </div>

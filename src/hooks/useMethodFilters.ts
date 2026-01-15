@@ -110,12 +110,13 @@ export function useMethodFilters() {
     }
   }, [sortKey]);
 
-  const filteredAndSortedMethods = useMemo(() => {
+  // Helper function to filter methods with specific filters applied
+  const filterMethods = useCallback((filtersToApply: Partial<Filters>) => {
     let result = [...methods];
+    const f = { ...defaultFilters, ...filtersToApply };
 
-    // Apply text search
-    if (filters.searchQuery) {
-      const query = filters.searchQuery.toLowerCase();
+    if (f.searchQuery) {
+      const query = f.searchQuery.toLowerCase();
       result = result.filter(m => 
         m.method.toLowerCase().includes(query) ||
         m.description.toLowerCase().includes(query) ||
@@ -123,36 +124,41 @@ export function useMethodFilters() {
       );
     }
 
-    // Apply filters
-    if (filters.question) {
-      result = result.filter(m => m.questions.includes(filters.question));
+    if (f.question) {
+      result = result.filter(m => m.questions.includes(f.question));
     }
 
-    if (filters.designPhase.length > 0) {
+    if (f.designPhase.length > 0) {
       result = result.filter(m => {
         const phases = m.designPhase.split(',').map(p => p.trim());
-        return filters.designPhase.some(f => phases.includes(f));
+        return f.designPhase.some(fp => phases.includes(fp));
       });
     }
 
-    if (filters.analysisFocus.length > 0) {
+    if (f.analysisFocus.length > 0) {
       result = result.filter(m => {
-        const focuses = m.analysisFocus.split(',').map(f => f.trim());
-        return filters.analysisFocus.some(f => focuses.includes(f));
+        const focuses = m.analysisFocus.split(',').map(fo => fo.trim());
+        return f.analysisFocus.some(fa => focuses.includes(fa));
       });
     }
 
-    if (filters.dataCollection) {
-      result = result.filter(m => m.dataCollection.trim() === filters.dataCollection);
+    if (f.dataCollection) {
+      result = result.filter(m => m.dataCollection.trim() === f.dataCollection);
     }
 
-    if (filters.cost) {
-      result = result.filter(m => m.cost === filters.cost);
+    if (f.cost) {
+      result = result.filter(m => m.cost === f.cost);
     }
 
-    if (filters.time) {
-      result = result.filter(m => m.time === filters.time);
+    if (f.time) {
+      result = result.filter(m => m.time === f.time);
     }
+
+    return result;
+  }, []);
+
+  const filteredAndSortedMethods = useMemo(() => {
+    let result = filterMethods(filters);
 
     // Apply sorting
     if (sortKey && sortKey !== 'questions') {
@@ -166,7 +172,62 @@ export function useMethodFilters() {
     }
 
     return result;
-  }, [filters, sortKey, sortOrder]);
+  }, [filters, sortKey, sortOrder, filterMethods]);
+
+  // Calculate available options for each filter category
+  const availableOptions = useMemo(() => {
+    // For each category, apply all OTHER filters and see what values exist
+    const getFiltersExcluding = (excludeKey: keyof Filters): Partial<Filters> => {
+      const result: Partial<Filters> = { ...filters };
+      if (excludeKey === 'question') result.question = '';
+      else if (excludeKey === 'designPhase') result.designPhase = [];
+      else if (excludeKey === 'analysisFocus') result.analysisFocus = [];
+      else if (excludeKey === 'dataCollection') result.dataCollection = '';
+      else if (excludeKey === 'cost') result.cost = '';
+      else if (excludeKey === 'time') result.time = '';
+      return result;
+    };
+
+    // Get methods when excluding each filter
+    const methodsForQuestions = filterMethods(getFiltersExcluding('question'));
+    const methodsForDesignPhase = filterMethods(getFiltersExcluding('designPhase'));
+    const methodsForAnalysisFocus = filterMethods(getFiltersExcluding('analysisFocus'));
+    const methodsForDataCollection = filterMethods(getFiltersExcluding('dataCollection'));
+    const methodsForCost = filterMethods(getFiltersExcluding('cost'));
+    const methodsForTime = filterMethods(getFiltersExcluding('time'));
+
+    // Extract available values from each filtered set
+    const questions = new Set<string>();
+    methodsForQuestions.forEach(m => m.questions.forEach(q => questions.add(q)));
+
+    const designPhase = new Set<string>();
+    methodsForDesignPhase.forEach(m => {
+      m.designPhase.split(',').map(p => p.trim()).forEach(p => designPhase.add(p));
+    });
+
+    const analysisFocus = new Set<string>();
+    methodsForAnalysisFocus.forEach(m => {
+      m.analysisFocus.split(',').map(f => f.trim()).forEach(f => analysisFocus.add(f));
+    });
+
+    const dataCollection = new Set<string>();
+    methodsForDataCollection.forEach(m => dataCollection.add(m.dataCollection.trim()));
+
+    const cost = new Set<string>();
+    methodsForCost.forEach(m => cost.add(m.cost));
+
+    const time = new Set<string>();
+    methodsForTime.forEach(m => time.add(m.time));
+
+    return {
+      questions: [...questions],
+      designPhase: [...designPhase],
+      analysisFocus: [...analysisFocus],
+      dataCollection: [...dataCollection],
+      cost: [...cost],
+      time: [...time]
+    };
+  }, [filters, filterMethods]);
 
   return {
     filters,
@@ -178,6 +239,7 @@ export function useMethodFilters() {
     sortOrder,
     handleSort,
     filteredMethods: filteredAndSortedMethods,
-    totalMethods: methods.length
+    totalMethods: methods.length,
+    availableOptions
   };
 }
