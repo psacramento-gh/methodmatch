@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="MethodMatch">
+  <rect width="32" height="32" rx="7" fill="#2ecc71"/>
+  <!--
+    Bold italic M — heavy geometric letterform sheared to match
+    the MethodMatch OG/social typography (white italic on green).
+  -->
+  <g transform="translate(16 16) skewX(-14) translate(-16 -16)">
+    <path
+      fill="#ffffff"
+      d="
+        M6.2 25.2
+        V7.4
+        H10.4
+        L16 18.6
+        L21.6 7.4
+        H25.8
+        V25.2
+        H21.9
+        V13.4
+        L17.85 22.5
+        H14.15
+        L10.1 13.4
+        V25.2
+        Z
+      "
+    />
+  </g>
+</svg>
