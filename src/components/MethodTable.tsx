@@ -120,13 +120,6 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
                 </TableCell>
               </TableRow>
             ))}
-            {methods.length === 0 && (
-              <TableRow>
-                <TableCell colSpan={8} className="text-center py-8 text-muted-foreground">
-                  No methods match your filters
-                </TableCell>
-              </TableRow>
-            )}
           </TableBody>
         </Table>
       </div>
@@ -202,11 +195,6 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
             </div>
           </div>
         ))}
-        {methods.length === 0 && (
-          <div className="text-center py-8 text-muted-foreground">
-            No methods match your filters
-          </div>
-        )}
       </div>
     </>
   );

@@ -1,4 +1,5 @@
-import { X } from 'lucide-react';
+import { Link2, X } from 'lucide-react';
+import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 
 interface ResultsBarProps {
@@ -8,14 +9,23 @@ interface ResultsBarProps {
   onClearFilters: () => void;
 }
 
-export function ResultsBar({ 
-  filteredCount, 
-  totalCount, 
-  hasActiveFilters, 
-  onClearFilters 
+export function ResultsBar({
+  filteredCount,
+  totalCount,
+  hasActiveFilters,
+  onClearFilters,
 }: ResultsBarProps) {
+  const handleCopyShareLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      toast.success('Share link copied');
+    } catch {
+      toast.error("Couldn't copy link");
+    }
+  };
+
   return (
-    <div className="flex items-center justify-between bg-muted/50 rounded-lg px-4 py-2.5 mb-4">
+    <div className="mb-4 flex flex-wrap items-center justify-between gap-2 rounded-lg bg-muted/50 px-4 py-2.5">
       <p className="text-sm text-muted-foreground">
         Showing{' '}
         <span className="font-semibold text-foreground">{filteredCount}</span>
@@ -23,18 +33,30 @@ export function ResultsBar({
         <span className="font-semibold text-foreground">{totalCount}</span>
         {' '}methods
       </p>
-      
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={onClearFilters}
-        className={`text-muted-foreground hover:text-foreground ${
-          !hasActiveFilters ? 'invisible' : ''
-        }`}
-      >
-        <X className="h-4 w-4 mr-1" />
-        Clear all filters
-      </Button>
+
+      <div className="flex items-center gap-1">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={handleCopyShareLink}
+          className="text-muted-foreground hover:text-foreground"
+        >
+          <Link2 className="mr-1 h-4 w-4" />
+          Copy share link
+        </Button>
+
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={onClearFilters}
+          className={`text-muted-foreground hover:text-foreground ${
+            !hasActiveFilters ? 'invisible' : ''
+          }`}
+        >
+          <X className="mr-1 h-4 w-4" />
+          Clear all filters
+        </Button>
+      </div>
     </div>
   );
 }

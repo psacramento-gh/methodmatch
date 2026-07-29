@@ -1,6 +1,10 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { methods, UXMethod } from '@/data/methods';
+import {
+  getRelaxationSuggestions,
+  RelaxationSuggestion,
+} from '@/lib/filterSuggestions';
 
 export interface Filters {
   searchQuery: string;
@@ -89,6 +93,32 @@ export function useMethodFilters() {
     setFilters(defaultFilters);
   }, []);
 
+  const applyRelaxation = useCallback((suggestion: RelaxationSuggestion) => {
+    setFilters((prev) => {
+      if (
+        (suggestion.filterKey === 'designPhase' ||
+          suggestion.filterKey === 'analysisFocus') &&
+        suggestion.valueToRemove
+      ) {
+        return {
+          ...prev,
+          [suggestion.filterKey]: prev[suggestion.filterKey].filter(
+            (v) => v !== suggestion.valueToRemove
+          ),
+        };
+      }
+
+      if (
+        suggestion.filterKey === 'designPhase' ||
+        suggestion.filterKey === 'analysisFocus'
+      ) {
+        return { ...prev, [suggestion.filterKey]: [] };
+      }
+
+      return { ...prev, [suggestion.filterKey]: '' };
+    });
+  }, []);
+
   const hasActiveFilters = useMemo(() => {
     return (
       filters.searchQuery !== '' ||
@@ -158,7 +188,7 @@ export function useMethodFilters() {
   }, []);
 
   const filteredAndSortedMethods = useMemo(() => {
-    let result = filterMethods(filters);
+    const result = filterMethods(filters);
 
     // Apply sorting
     if (sortKey && sortKey !== 'questions') {
@@ -229,17 +259,26 @@ export function useMethodFilters() {
     };
   }, [filters, filterMethods]);
 
+  const relaxationSuggestions = useMemo(() => {
+    if (filteredAndSortedMethods.length > 0 || !hasActiveFilters) {
+      return [];
+    }
+    return getRelaxationSuggestions(filters, filterMethods);
+  }, [filteredAndSortedMethods.length, hasActiveFilters, filters, filterMethods]);
+
   return {
     filters,
     updateFilter,
     toggleCheckboxFilter,
     clearAllFilters,
+    applyRelaxation,
     hasActiveFilters,
     sortKey,
     sortOrder,
     handleSort,
     filteredMethods: filteredAndSortedMethods,
     totalMethods: methods.length,
-    availableOptions
+    availableOptions,
+    relaxationSuggestions,
   };
 }
