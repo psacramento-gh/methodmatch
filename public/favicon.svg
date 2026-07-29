@@ -1,37 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="MethodMatch">
   <rect width="32" height="32" rx="7" fill="#2ecc71"/>
-  <!-- Left M -->
-  <path fill="#fff" d="
-    M3.6 24.6
-    V7.7
-    H7.0
-    L9.85 17.2
-    L12.7 7.7
-    H16.1
-    V24.6
-    H13.0
-    V13.8
-    L11.2 20.9
-    H8.5
-    L6.7 13.8
-    V24.6
-    Z
-  "/>
-  <!-- Right M — overlaps left M's trailing stem to form the monogram -->
-  <path fill="#fff" d="
-    M15.9 24.6
-    V7.7
-    H19.3
-    L22.15 17.2
-    L25.0 7.7
-    H28.4
-    V24.6
-    H25.3
-    V13.8
-    L23.5 20.9
-    H20.8
-    L19.0 13.8
-    V24.6
-    Z
-  "/>
+  <!--
+    Bold italic M — heavy geometric letterform sheared to match
+    the MethodMatch OG/social typography (white italic on green).
+  -->
+  <g transform="translate(16 16) skewX(-14) translate(-16 -16)">
+    <path
+      fill="#ffffff"
+      d="
+        M6.2 25.2
+        V7.4
+        H10.4
+        L16 18.6
+        L21.6 7.4
+        H25.8
+        V25.2
+        H21.9
+        V13.4
+        L17.85 22.5
+        H14.15
+        L10.1 13.4
+        V25.2
+        Z
+      "
+    />
+  </g>
 </svg>
