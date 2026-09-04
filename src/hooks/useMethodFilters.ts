@@ -3,7 +3,6 @@ import { useSearchParams } from 'react-router-dom';
 import { methods, UXMethod } from '@/data/methods';
 
 export interface Filters {
-  searchQuery: string;
   question: string;
   designPhase: string[];
   analysisFocus: string[];
@@ -16,7 +15,6 @@ export type SortKey = keyof UXMethod | null;
 export type SortOrder = 'asc' | 'desc';
 
 const defaultFilters: Filters = {
-  searchQuery: '',
   question: '',
   designPhase: [],
   analysisFocus: [],
@@ -27,7 +25,6 @@ const defaultFilters: Filters = {
 
 function parseFiltersFromParams(searchParams: URLSearchParams): Filters {
   return {
-    searchQuery: searchParams.get('q') || '',
     question: searchParams.get('question') || '',
     designPhase: searchParams.get('designPhase')?.split(',').filter(Boolean) || [],
     analysisFocus: searchParams.get('analysisFocus')?.split(',').filter(Boolean) || [],
@@ -40,7 +37,6 @@ function parseFiltersFromParams(searchParams: URLSearchParams): Filters {
 function filtersToParams(filters: Filters): URLSearchParams {
   const params = new URLSearchParams();
   
-  if (filters.searchQuery) params.set('q', filters.searchQuery);
   if (filters.question) params.set('question', filters.question);
   if (filters.designPhase.length > 0) params.set('designPhase', filters.designPhase.join(','));
   if (filters.analysisFocus.length > 0) params.set('analysisFocus', filters.analysisFocus.join(','));
@@ -91,7 +87,6 @@ export function useMethodFilters() {
 
   const hasActiveFilters = useMemo(() => {
     return (
-      filters.searchQuery !== '' ||
       filters.question !== '' ||
       filters.designPhase.length > 0 ||
       filters.analysisFocus.length > 0 ||
@@ -114,15 +109,6 @@ export function useMethodFilters() {
   const filterMethods = useCallback((filtersToApply: Partial<Filters>) => {
     let result = [...methods];
     const f = { ...defaultFilters, ...filtersToApply };
-
-    if (f.searchQuery) {
-      const query = f.searchQuery.toLowerCase();
-      result = result.filter(m => 
-        m.method.toLowerCase().includes(query) ||
-        m.description.toLowerCase().includes(query) ||
-        m.questions.some(q => q.toLowerCase().includes(query))
-      );
-    }
 
     if (f.question) {
       result = result.filter(m => m.questions.includes(f.question));
@@ -158,7 +144,7 @@ export function useMethodFilters() {
   }, []);
 
   const filteredAndSortedMethods = useMemo(() => {
-    let result = filterMethods(filters);
+    const result = filterMethods(filters);
 
     // Apply sorting
     if (sortKey && sortKey !== 'questions') {
