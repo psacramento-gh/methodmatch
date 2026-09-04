@@ -1,73 +1,94 @@
-# Welcome to your Lovable project
+# MethodMatch
 
-## Project info
+**Find the right UX research method for your project.**
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+MethodMatch is a web-based decision-support tool that helps UX professionals choose the most appropriate research methods based on project constraints. Filter 17 established UX methodologies across six dimensions—research question, design phase, analysis focus, data collection type, cost, and time—to quickly narrow down the best-fit options.
 
-## How can I edit this code?
+**Live app:** [methodmatch.vercel.app](https://methodmatch.vercel.app)
 
-There are several ways of editing your application.
+## Features
 
-**Use Lovable**
+- **Interactive filtering** — Combine filters across six dimensions to instantly see matching methods
+- **Sortable results table** — Compare methods side by side with cost, time, and focus indicators
+- **Shareable filter state** — Filter selections are reflected in the URL so you can bookmark or share a specific view
+- **Method details** — Each entry includes a description and a link to an authoritative external resource (e.g. Nielsen Norman Group, MeasuringU)
+- **Light/dark theme** — Toggle between themes for comfortable viewing
+- **About page** — In-depth overview of the tool, its use cases, and limitations
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## Filter dimensions
 
-Changes made via Lovable will be committed automatically to this repo.
+| Dimension | Examples |
+|-----------|----------|
+| **Question** | "Are there problems in the interface?", "What features do people want?" |
+| **Design phase** | Plan, Design, Release |
+| **Analysis focus** | Qualitative, Quantitative |
+| **Data collection** | Analytic (logs, analytics), Empirical (direct user interaction) |
+| **Cost** | Low, Medium, High |
+| **Time** | Low, Medium, High |
 
-**Use your preferred IDE**
+## Methods covered
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+MethodMatch catalogs 17 UX research methods, including:
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- **Early-stage discovery:** Interview, Survey, Card Sort, Observation, Contextual Inquiry, Diary Study
+- **Problem identification:** Formative Usability Testing, Heuristic Evaluation, Tree Test, Search-Log Analysis, True Intent
+- **Comparative evaluation:** A/B Testing, Task-Based Benchmark, Retrospective Benchmark (Survey), PURE, Click Test, Usability Test
 
-Follow these steps:
+## Getting started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v18 or later recommended)
+- npm
+
+### Installation
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+git clone https://github.com/psacramento-gh/methodmatch.git
+cd methodmatch
+npm install
+```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Development
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```sh
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The dev server starts at [http://localhost:8080](http://localhost:8080).
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Other scripts
 
-**Use GitHub Codespaces**
+| Command | Description |
+|---------|-------------|
+| `npm run build` | Production build |
+| `npm run preview` | Preview the production build locally |
+| `npm run lint` | Run ESLint |
+| `npm run test` | Run tests with Vitest |
+| `npm run test:watch` | Run tests in watch mode |
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Tech stack
 
-## What technologies are used for this project?
+- [Vite](https://vitejs.dev/)
+- [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+- [React Router](https://reactrouter.com/)
+- [shadcn/ui](https://ui.shadcn.com/) + [Tailwind CSS](https://tailwindcss.com/)
+- [Vitest](https://vitest.dev/) + [Testing Library](https://testing-library.com/)
 
-This project is built with:
+## Project structure
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+```
+src/
+├── components/     # UI components (filters, table, theme toggle, etc.)
+├── data/           # UX method definitions (methods.ts)
+├── hooks/          # Filter and sort logic (useMethodFilters)
+└── pages/          # Index, About, and NotFound routes
+```
 
-## How can I deploy this project?
+Method data lives in `src/data/methods.ts`. To add or update a method, edit that file and adjust the filter options in `useMethodFilters.ts` if new values are introduced.
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+## About
 
-## Can I connect a custom domain to my Lovable project?
+MethodMatch was developed by [Paulo Sacramento](https://www.psacramento.com/) as a lightweight, focused tool for method selection—no signup, no bloat, just fast answers to "which research method should we use?"
 
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+For a full overview of the tool's purpose, audience, and limitations, visit the [About page](https://methodmatch.vercel.app/about) in the live app.
