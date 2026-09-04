@@ -89,6 +89,6 @@ Method data lives in `src/data/methods.ts`. To add or update a method, edit that
 
 ## About
 
-MethodMatch was developed by [Paulo Sacramento](https://www.psacramento.com/) as a lightweight, focused tool for method selection—no signup, no bloat, just fast answers to "which research method should we use?"
+MethodMatch was developed by [pSacramento](https://www.psacramento.com/) as a lightweight, focused tool for method selection—no signup, no bloat, just fast answers to "which research method should we use?"
 
 For a full overview of the tool's purpose, audience, and limitations, visit the [About page](https://methodmatch.vercel.app/about) in the live app.
