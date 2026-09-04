@@ -61,7 +61,7 @@ const FilterBadgeWithTooltip = ({
           "inline-flex rounded-full border-0 bg-transparent p-0",
           disabled ? "cursor-not-allowed" : "cursor-help"
         )}
-        disabled={disabled}
+        aria-disabled={disabled}
         aria-label={`${label}: ${tooltip}`}
         onClick={(event) => event.stopPropagation()}
       >
