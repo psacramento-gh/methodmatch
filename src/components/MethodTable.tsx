@@ -54,7 +54,7 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
   return (
     <>
       {/* Desktop Table */}
-      <div className="hidden md:block">
+      <div className="hidden lg:block">
         <Table className="table-fixed">
           <TableHeader>
             <TableRow>
@@ -131,8 +131,8 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
         </Table>
       </div>
 
-      {/* Mobile Cards */}
-      <div className="md:hidden space-y-4">
+      {/* Mobile/Tablet Cards */}
+      <div className="lg:hidden space-y-4">
         {methods.map((method, index) => (
           <div
             key={`mobile-${method.method}-${index}`}
