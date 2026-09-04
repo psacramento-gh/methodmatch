@@ -67,6 +67,16 @@ The dev server starts at [http://localhost:8080](http://localhost:8080).
 | `npm run test` | Run tests with Vitest |
 | `npm run test:watch` | Run tests in watch mode |
 
+## Deploy
+
+This is a static SPA. On Vercel, `vercel.json` rewrites all routes to `index.html` so deep links like `/about` work.
+
+1. Import the GitHub repo into [Vercel](https://vercel.com)
+2. Use the default Vite settings (`npm run build`, output `dist`)
+3. Deploy
+
+Any static host that supports SPA fallbacks (Netlify, GitHub Pages with a 404 redirect, etc.) also works.
+
 ## Tech stack
 
 - [Vite](https://vitejs.dev/)
@@ -92,3 +102,7 @@ Method data lives in `src/data/methods.ts`. To add or update a method, edit that
 MethodMatch was developed by [pSacramento](https://www.psacramento.com/) as a lightweight, focused tool for method selection—no signup, no bloat, just fast answers to "which research method should we use?"
 
 For a full overview of the tool's purpose, audience, and limitations, visit the [About page](https://methodmatch.vercel.app/about) in the live app.
+
+## License
+
+MIT

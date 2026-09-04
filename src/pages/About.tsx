@@ -26,7 +26,7 @@ const About = () => {
             MethodMatch is a web-based decision-support tool designed to help UX professionals select the most appropriate research methods for their specific projects.
           </p>
           <p>
-            Developed by <a href="https://www.psacramento.com/" target="_blank" rel="noopener noreferrer">pSacramento</a> as an interactive, searchable database, it catalogs 17 established UX research methodologies and provides intelligent filtering to match methods to project requirements. Rather than offering generic descriptions, MethodMatch connects research questions, project constraints, and practical considerations to recommend the best-fit methods for any given situation.
+            Developed by <a href="https://www.psacramento.com/" target="_blank" rel="noopener noreferrer">pSacramento</a> as an interactive, filterable database, it catalogs 17 established UX research methodologies and provides intelligent filtering to match methods to project requirements. Rather than offering generic descriptions, MethodMatch connects research questions, project constraints, and practical considerations to recommend the best-fit methods for any given situation.
           </p>
 
           <h2>Core Functionality</h2>
