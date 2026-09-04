@@ -11,9 +11,6 @@ const Index = () => {
     toggleCheckboxFilter,
     clearAllFilters,
     hasActiveFilters,
-    sortKey,
-    sortOrder,
-    handleSort,
     filteredMethods,
     totalMethods,
     availableOptions
@@ -34,7 +31,7 @@ const Index = () => {
 
         <ResultsBar filteredCount={filteredMethods.length} totalCount={totalMethods} hasActiveFilters={hasActiveFilters} onClearFilters={clearAllFilters} />
 
-        <MethodTable methods={filteredMethods} sortKey={sortKey} sortOrder={sortOrder} onSort={handleSort} />
+        <MethodTable methods={filteredMethods} />
 
         <Footer />
       </div>
