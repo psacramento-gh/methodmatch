@@ -13,7 +13,7 @@ export const Footer = () => {
         </Link>
         <span className="text-border">•</span>
         <a
-          href="https://github.com/paulosacramento/methodmatch"
+          href="https://github.com/psacramento-gh/methodmatch"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 hover:text-foreground transition-colors"
