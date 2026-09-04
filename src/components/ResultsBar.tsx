@@ -15,7 +15,7 @@ export function ResultsBar({
   onClearFilters 
 }: ResultsBarProps) {
   return (
-    <div className="flex items-center justify-between gap-3 bg-muted/50 rounded-lg px-4 py-2.5 mb-4">
+    <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 bg-muted/50 rounded-lg px-4 py-2.5 mb-4">
       <p className="text-sm text-muted-foreground whitespace-nowrap">
         Showing{' '}
         <span className="font-semibold text-foreground">{filteredCount}</span>

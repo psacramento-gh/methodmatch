@@ -9,7 +9,7 @@ MethodMatch is a web-based decision-support tool that helps UX professionals cho
 ## Features
 
 - **Interactive filtering** — Combine filters across six dimensions to instantly see matching methods
-- **Sortable results table** — Compare methods side by side with cost, time, and focus indicators
+- **Results table** — Compare methods side by side with cost, time, and focus indicators
 - **Shareable filter state** — Filter selections are reflected in the URL so you can bookmark or share a specific view
 - **Method details** — Each entry includes a description and a link to an authoritative external resource (e.g. Nielsen Norman Group, MeasuringU)
 - **Light/dark theme** — Toggle between themes for comfortable viewing
@@ -91,7 +91,7 @@ Any static host that supports SPA fallbacks (Netlify, GitHub Pages with a 404 re
 src/
 ├── components/     # UI components (filters, table, theme toggle, etc.)
 ├── data/           # UX method definitions (methods.ts)
-├── hooks/          # Filter and sort logic (useMethodFilters)
+├── hooks/          # Filter logic (useMethodFilters)
 └── pages/          # Index, About, and NotFound routes
 ```
 
