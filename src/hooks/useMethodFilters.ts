@@ -11,9 +11,6 @@ export interface Filters {
   time: string;
 }
 
-export type SortKey = keyof UXMethod | null;
-export type SortOrder = 'asc' | 'desc';
-
 const defaultFilters: Filters = {
   question: '',
   designPhase: [],
@@ -54,9 +51,6 @@ export function useMethodFilters() {
     parseFiltersFromParams(searchParams)
   );
 
-  const [sortKey, setSortKey] = useState<SortKey>(null);
-  const [sortOrder, setSortOrder] = useState<SortOrder>('asc');
-
   // Sync filters to URL
   useEffect(() => {
     const newParams = filtersToParams(filters);
@@ -96,15 +90,6 @@ export function useMethodFilters() {
     );
   }, [filters]);
 
-  const handleSort = useCallback((key: SortKey) => {
-    if (sortKey === key) {
-      setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc');
-    } else {
-      setSortKey(key);
-      setSortOrder('asc');
-    }
-  }, [sortKey]);
-
   // Helper function to filter methods with specific filters applied
   const filterMethods = useCallback((filtersToApply: Partial<Filters>) => {
     let result = [...methods];
@@ -143,22 +128,9 @@ export function useMethodFilters() {
     return result;
   }, []);
 
-  const filteredAndSortedMethods = useMemo(() => {
-    const result = filterMethods(filters);
-
-    // Apply sorting
-    if (sortKey && sortKey !== 'questions') {
-      result.sort((a, b) => {
-        const aVal = String(a[sortKey] || '').toUpperCase();
-        const bVal = String(b[sortKey] || '').toUpperCase();
-        if (aVal < bVal) return sortOrder === 'asc' ? -1 : 1;
-        if (aVal > bVal) return sortOrder === 'asc' ? 1 : -1;
-        return 0;
-      });
-    }
-
-    return result;
-  }, [filters, sortKey, sortOrder, filterMethods]);
+  const filteredMethods = useMemo(() => {
+    return filterMethods(filters);
+  }, [filters, filterMethods]);
 
   // Calculate available options for each filter category
   const availableOptions = useMemo(() => {
@@ -221,10 +193,7 @@ export function useMethodFilters() {
     toggleCheckboxFilter,
     clearAllFilters,
     hasActiveFilters,
-    sortKey,
-    sortOrder,
-    handleSort,
-    filteredMethods: filteredAndSortedMethods,
+    filteredMethods,
     totalMethods: methods.length,
     availableOptions
   };
