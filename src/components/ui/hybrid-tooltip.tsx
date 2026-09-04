@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useTouchTooltip } from "@/hooks/use-touch-tooltip";
 import {
   Tooltip,
   TooltipContent,
@@ -29,8 +29,8 @@ interface HybridTooltipContentProps {
   sideOffset?: number;
 }
 
-const HybridTooltipContext = React.createContext<{ isMobile: boolean }>({
-  isMobile: false,
+const HybridTooltipContext = React.createContext<{ needsTouchTooltip: boolean }>({
+  needsTouchTooltip: false,
 });
 
 export function HybridTooltipProvider({ children }: { children: React.ReactNode }) {
@@ -38,27 +38,27 @@ export function HybridTooltipProvider({ children }: { children: React.ReactNode 
 }
 
 export function HybridTooltip({ children }: HybridTooltipProps) {
-  const isMobile = useIsMobile();
+  const needsTouchTooltip = useTouchTooltip();
 
-  if (isMobile) {
+  if (needsTouchTooltip) {
     return (
-      <HybridTooltipContext.Provider value={{ isMobile: true }}>
+      <HybridTooltipContext.Provider value={{ needsTouchTooltip: true }}>
         <Popover>{children}</Popover>
       </HybridTooltipContext.Provider>
     );
   }
 
   return (
-    <HybridTooltipContext.Provider value={{ isMobile: false }}>
+    <HybridTooltipContext.Provider value={{ needsTouchTooltip: false }}>
       <Tooltip>{children}</Tooltip>
     </HybridTooltipContext.Provider>
   );
 }
 
 export function HybridTooltipTrigger({ children, asChild }: HybridTooltipTriggerProps) {
-  const { isMobile } = React.useContext(HybridTooltipContext);
+  const { needsTouchTooltip } = React.useContext(HybridTooltipContext);
 
-  if (isMobile) {
+  if (needsTouchTooltip) {
     return <PopoverTrigger asChild={asChild}>{children}</PopoverTrigger>;
   }
 
@@ -71,9 +71,9 @@ export function HybridTooltipContent({
   side,
   sideOffset = 4,
 }: HybridTooltipContentProps) {
-  const { isMobile } = React.useContext(HybridTooltipContext);
+  const { needsTouchTooltip } = React.useContext(HybridTooltipContext);
 
-  if (isMobile) {
+  if (needsTouchTooltip) {
     return (
       <PopoverContent
         side={side}

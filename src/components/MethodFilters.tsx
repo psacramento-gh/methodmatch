@@ -10,12 +10,6 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
-import {
   HybridTooltip,
   HybridTooltipContent,
   HybridTooltipProvider,
@@ -31,6 +25,7 @@ import {
 } from '@/data/methods';
 import { Filters } from '@/hooks/useMethodFilters';
 import { badgeColors, badgeIcons } from '@/components/LevelBadge';
+import { BADGE_TOOLTIPS } from '@/data/badgeTooltips';
 import { cn } from '@/lib/utils';
 
 // Mini badge component for filter options with icons
@@ -49,40 +44,37 @@ const FilterBadge = ({ label, disabled = false }: { label: string; disabled?: bo
   );
 };
 
-const FILTER_TOOLTIPS: Record<string, string> = {
-  // Category descriptions (for info icons)
-  'Question-info': 'What type of research question are you trying to answer?',
-  'Design Phase-info': 'When in the design process will you use this method?',
-  'Analysis Focus-info': 'What type of insights are you looking for?',
-  'Data Collection-info': 'How will you gather data for this research?',
-  'Cost-info': 'How much budget is required for this method?',
-  'Time-info': 'How long will it take to complete the research?',
-  
-  // Design Phase
-  'Plan': 'Methods best suited for the early discovery phase, before design work begins.',
-  'Design': 'Methods commonly used during active design and prototyping iterations.',
-  'Release': 'Methods typically applied after launch to evaluate live products.',
-  
-  // Analysis Focus
-  'Qualitative': 'Focuses on understanding the "why" through observations, behaviors, and open-ended feedback.',
-  'Quantitative': 'Focuses on the "how many" or "how much" through numerical data and statistical analysis.',
-  
-  // Data Collection
-  'Analytic': 'Methods based on expert review, heuristics, or modeling rather than direct user testing.',
-  'Empirical': 'Methods based on direct observation or data collection from actual users.',
-  
-  // Cost (category-specific keys)
-  'Cost-Low': 'Can be conducted with minimal budget, often using internal resources or free tools.',
-  'Cost-Medium': 'Requires some budget for participant incentives, specialized tools, or moderate researcher time.',
-  'Cost-High': 'Significant investment needed for large sample sizes, professional labs, or extensive consulting.',
-  
-  // Time (category-specific keys)
-  'Time-Low': 'Can be completed in a few days to a week, ideal for fast-paced agile cycles.',
-  'Time-Medium': 'Typically takes 2-4 weeks from planning to reporting.',
-  'Time-High': 'Long-term studies or complex benchmarks that may take over a month to complete.',
-};
+const FilterBadgeWithTooltip = ({
+  label,
+  tooltip,
+  disabled = false,
+}: {
+  label: string;
+  tooltip: string;
+  disabled?: boolean;
+}) => (
+  <HybridTooltip>
+    <HybridTooltipTrigger asChild>
+      <button
+        type="button"
+        className={cn(
+          "inline-flex rounded-full border-0 bg-transparent p-0",
+          disabled ? "cursor-not-allowed" : "cursor-help"
+        )}
+        aria-disabled={disabled}
+        aria-label={`${label}: ${tooltip}`}
+        onClick={(event) => event.stopPropagation()}
+      >
+        <FilterBadge label={label} disabled={disabled} />
+      </button>
+    </HybridTooltipTrigger>
+    <HybridTooltipContent>
+      <p className="max-w-xs">{tooltip}</p>
+    </HybridTooltipContent>
+  </HybridTooltip>
+);
 
-export interface AvailableOptions {
+interface AvailableOptions {
   questions: string[];
   designPhase: string[];
   analysisFocus: string[];
@@ -108,8 +100,7 @@ export function MethodFilters({ filters, availableOptions, onFilterChange, onChe
 
   return (
     <HybridTooltipProvider>
-      <TooltipProvider>
-        <div className="bg-muted/50 rounded-lg p-5 shadow-sm border mb-8">
+      <div className="bg-muted/50 rounded-lg p-5 shadow-sm border mb-8">
           {/* All filters in a single unified grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {/* Question Dropdown */}
@@ -121,7 +112,7 @@ export function MethodFilters({ filters, availableOptions, onFilterChange, onChe
                     <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
                   </HybridTooltipTrigger>
                   <HybridTooltipContent>
-                    <p className="max-w-xs">{FILTER_TOOLTIPS['Question-info']}</p>
+                    <p className="max-w-xs">{BADGE_TOOLTIPS['Question-info']}</p>
                   </HybridTooltipContent>
                 </HybridTooltip>
               </Label>
@@ -161,7 +152,7 @@ export function MethodFilters({ filters, availableOptions, onFilterChange, onChe
                     <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
                   </HybridTooltipTrigger>
                   <HybridTooltipContent>
-                    <p className="max-w-xs">{FILTER_TOOLTIPS['Design Phase-info']}</p>
+                    <p className="max-w-xs">{BADGE_TOOLTIPS['Design Phase-info']}</p>
                   </HybridTooltipContent>
                 </HybridTooltip>
             </Label>
@@ -171,28 +162,26 @@ export function MethodFilters({ filters, availableOptions, onFilterChange, onChe
                 const isSelected = filters.designPhase.includes(phase);
                 const isDisabled = !isAvailable && !isSelected;
                 return (
-                  <Tooltip key={phase}>
-                    <TooltipTrigger asChild>
-                      <Label
-                        htmlFor={`phase-${phase}`}
-                        className={cn(
-                          "flex items-center gap-2 px-2 py-1 -mx-2 rounded-md transition-colors",
-                          isDisabled ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:bg-muted"
-                        )}
-                      >
-                        <Checkbox
-                          id={`phase-${phase}`}
-                          checked={isSelected}
-                          onCheckedChange={() => onCheckboxToggle('designPhase', phase)}
-                          disabled={isDisabled}
-                        />
-                        <FilterBadge label={phase} disabled={isDisabled} />
-                      </Label>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p className="max-w-xs">{FILTER_TOOLTIPS[phase]}</p>
-                    </TooltipContent>
-                  </Tooltip>
+                  <Label
+                    key={phase}
+                    htmlFor={`phase-${phase}`}
+                    className={cn(
+                      "flex items-center gap-2 px-2 py-1 -mx-2 rounded-md transition-colors",
+                      isDisabled ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:bg-muted"
+                    )}
+                  >
+                    <Checkbox
+                      id={`phase-${phase}`}
+                      checked={isSelected}
+                      onCheckedChange={() => onCheckboxToggle('designPhase', phase)}
+                      disabled={isDisabled}
+                    />
+                    <FilterBadgeWithTooltip
+                      label={phase}
+                      tooltip={BADGE_TOOLTIPS[phase]}
+                      disabled={isDisabled}
+                    />
+                  </Label>
                 );
               })}
             </div>
@@ -207,7 +196,7 @@ export function MethodFilters({ filters, availableOptions, onFilterChange, onChe
                     <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
                   </HybridTooltipTrigger>
                   <HybridTooltipContent>
-                    <p className="max-w-xs">{FILTER_TOOLTIPS['Analysis Focus-info']}</p>
+                    <p className="max-w-xs">{BADGE_TOOLTIPS['Analysis Focus-info']}</p>
                   </HybridTooltipContent>
                 </HybridTooltip>
             </Label>
@@ -217,28 +206,26 @@ export function MethodFilters({ filters, availableOptions, onFilterChange, onChe
                 const isSelected = filters.analysisFocus.includes(focus);
                 const isDisabled = !isAvailable && !isSelected;
                 return (
-                  <Tooltip key={focus}>
-                    <TooltipTrigger asChild>
-                      <Label
-                        htmlFor={`focus-${focus}`}
-                        className={cn(
-                          "flex items-center gap-2 px-2 py-1 -mx-2 rounded-md transition-colors",
-                          isDisabled ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:bg-muted"
-                        )}
-                      >
-                        <Checkbox
-                          id={`focus-${focus}`}
-                          checked={isSelected}
-                          onCheckedChange={() => onCheckboxToggle('analysisFocus', focus)}
-                          disabled={isDisabled}
-                        />
-                        <FilterBadge label={focus} disabled={isDisabled} />
-                      </Label>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p className="max-w-xs">{FILTER_TOOLTIPS[focus]}</p>
-                    </TooltipContent>
-                  </Tooltip>
+                  <Label
+                    key={focus}
+                    htmlFor={`focus-${focus}`}
+                    className={cn(
+                      "flex items-center gap-2 px-2 py-1 -mx-2 rounded-md transition-colors",
+                      isDisabled ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:bg-muted"
+                    )}
+                  >
+                    <Checkbox
+                      id={`focus-${focus}`}
+                      checked={isSelected}
+                      onCheckedChange={() => onCheckboxToggle('analysisFocus', focus)}
+                      disabled={isDisabled}
+                    />
+                    <FilterBadgeWithTooltip
+                      label={focus}
+                      tooltip={BADGE_TOOLTIPS[focus]}
+                      disabled={isDisabled}
+                    />
+                  </Label>
                 );
               })}
             </div>
@@ -253,7 +240,7 @@ export function MethodFilters({ filters, availableOptions, onFilterChange, onChe
                     <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
                   </HybridTooltipTrigger>
                   <HybridTooltipContent>
-                    <p className="max-w-xs">{FILTER_TOOLTIPS['Data Collection-info']}</p>
+                    <p className="max-w-xs">{BADGE_TOOLTIPS['Data Collection-info']}</p>
                   </HybridTooltipContent>
                 </HybridTooltip>
             </Label>
@@ -271,23 +258,21 @@ export function MethodFilters({ filters, availableOptions, onFilterChange, onChe
                 const isSelected = filters.dataCollection === dc;
                 const isDisabled = !isAvailable && !isSelected;
                 return (
-                  <Tooltip key={dc}>
-                    <TooltipTrigger asChild>
-                      <Label 
-                        htmlFor={`dc-${dc}`} 
-                        className={cn(
-                          "flex items-center gap-2 px-2 py-1 -mx-2 rounded-md transition-colors",
-                          isDisabled ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:bg-muted"
-                        )}
-                      >
-                        <RadioGroupItem value={dc} id={`dc-${dc}`} disabled={isDisabled} />
-                        <FilterBadge label={dc} disabled={isDisabled} />
-                      </Label>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p className="max-w-xs">{FILTER_TOOLTIPS[dc]}</p>
-                    </TooltipContent>
-                  </Tooltip>
+                  <Label
+                    key={dc}
+                    htmlFor={`dc-${dc}`}
+                    className={cn(
+                      "flex items-center gap-2 px-2 py-1 -mx-2 rounded-md transition-colors",
+                      isDisabled ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:bg-muted"
+                    )}
+                  >
+                    <RadioGroupItem value={dc} id={`dc-${dc}`} disabled={isDisabled} />
+                    <FilterBadgeWithTooltip
+                      label={dc}
+                      tooltip={BADGE_TOOLTIPS[dc]}
+                      disabled={isDisabled}
+                    />
+                  </Label>
                 );
               })}
             </RadioGroup>
@@ -302,7 +287,7 @@ export function MethodFilters({ filters, availableOptions, onFilterChange, onChe
                     <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
                   </HybridTooltipTrigger>
                   <HybridTooltipContent>
-                    <p className="max-w-xs">{FILTER_TOOLTIPS['Cost-info']}</p>
+                    <p className="max-w-xs">{BADGE_TOOLTIPS['Cost-info']}</p>
                   </HybridTooltipContent>
                 </HybridTooltip>
             </Label>
@@ -320,23 +305,21 @@ export function MethodFilters({ filters, availableOptions, onFilterChange, onChe
                 const isSelected = filters.cost === cost;
                 const isDisabled = !isAvailable && !isSelected;
                 return (
-                  <Tooltip key={cost}>
-                    <TooltipTrigger asChild>
-                      <Label 
-                        htmlFor={`cost-${cost}`} 
-                        className={cn(
-                          "flex items-center gap-2 px-2 py-1 -mx-2 rounded-md transition-colors",
-                          isDisabled ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:bg-muted"
-                        )}
-                      >
-                        <RadioGroupItem value={cost} id={`cost-${cost}`} disabled={isDisabled} />
-                        <FilterBadge label={cost} disabled={isDisabled} />
-                      </Label>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p className="max-w-xs">{FILTER_TOOLTIPS[`Cost-${cost}`]}</p>
-                    </TooltipContent>
-                  </Tooltip>
+                  <Label
+                    key={cost}
+                    htmlFor={`cost-${cost}`}
+                    className={cn(
+                      "flex items-center gap-2 px-2 py-1 -mx-2 rounded-md transition-colors",
+                      isDisabled ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:bg-muted"
+                    )}
+                  >
+                    <RadioGroupItem value={cost} id={`cost-${cost}`} disabled={isDisabled} />
+                    <FilterBadgeWithTooltip
+                      label={cost}
+                      tooltip={BADGE_TOOLTIPS[`Cost-${cost}`]}
+                      disabled={isDisabled}
+                    />
+                  </Label>
                 );
               })}
             </RadioGroup>
@@ -351,7 +334,7 @@ export function MethodFilters({ filters, availableOptions, onFilterChange, onChe
                     <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
                   </HybridTooltipTrigger>
                   <HybridTooltipContent>
-                    <p className="max-w-xs">{FILTER_TOOLTIPS['Time-info']}</p>
+                    <p className="max-w-xs">{BADGE_TOOLTIPS['Time-info']}</p>
                   </HybridTooltipContent>
                 </HybridTooltip>
             </Label>
@@ -369,30 +352,27 @@ export function MethodFilters({ filters, availableOptions, onFilterChange, onChe
                 const isSelected = filters.time === time;
                 const isDisabled = !isAvailable && !isSelected;
                 return (
-                  <Tooltip key={time}>
-                    <TooltipTrigger asChild>
-                      <Label 
-                        htmlFor={`time-${time}`} 
-                        className={cn(
-                          "flex items-center gap-2 px-2 py-1 -mx-2 rounded-md transition-colors",
-                          isDisabled ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:bg-muted"
-                        )}
-                      >
-                        <RadioGroupItem value={time} id={`time-${time}`} disabled={isDisabled} />
-                        <FilterBadge label={time} disabled={isDisabled} />
-                      </Label>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p className="max-w-xs">{FILTER_TOOLTIPS[`Time-${time}`]}</p>
-                    </TooltipContent>
-                  </Tooltip>
+                  <Label
+                    key={time}
+                    htmlFor={`time-${time}`}
+                    className={cn(
+                      "flex items-center gap-2 px-2 py-1 -mx-2 rounded-md transition-colors",
+                      isDisabled ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:bg-muted"
+                    )}
+                  >
+                    <RadioGroupItem value={time} id={`time-${time}`} disabled={isDisabled} />
+                    <FilterBadgeWithTooltip
+                      label={time}
+                      tooltip={BADGE_TOOLTIPS[`Time-${time}`]}
+                      disabled={isDisabled}
+                    />
+                  </Label>
                 );
               })}
             </RadioGroup>
           </div>
           </div>
         </div>
-      </TooltipProvider>
     </HybridTooltipProvider>
   );
 }

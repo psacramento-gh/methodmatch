@@ -18,7 +18,7 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { UXMethod } from '@/data/methods';
 import { SortKey, SortOrder } from '@/hooks/useMethodFilters';
-import { LevelBadge } from '@/components/LevelBadge';
+import { LevelBadgeWithTooltip } from '@/components/LevelBadge';
 import { CollapsibleText } from '@/components/CollapsibleText';
 
 interface MethodTableProps {
@@ -113,25 +113,25 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
                 <TableCell>
                   <div className="flex flex-wrap gap-1">
                     {method.designPhase.split(',').map((phase, i) => (
-                      <LevelBadge key={i} level={phase.trim()} type="designPhase" />
+                      <LevelBadgeWithTooltip key={i} level={phase.trim()} type="designPhase" />
                     ))}
                   </div>
                 </TableCell>
                 <TableCell>
                   <div className="flex flex-wrap gap-1">
                     {method.analysisFocus.split(',').map((focus) => (
-                      <LevelBadge key={focus.trim()} level={focus.trim()} type="analysisFocus" />
+                      <LevelBadgeWithTooltip key={focus.trim()} level={focus.trim()} type="analysisFocus" />
                     ))}
                   </div>
                 </TableCell>
                 <TableCell>
-                  <LevelBadge level={method.dataCollection} type="dataCollection" />
+                  <LevelBadgeWithTooltip level={method.dataCollection} type="dataCollection" />
                 </TableCell>
                 <TableCell>
-                  <LevelBadge level={method.cost} type="cost" />
+                  <LevelBadgeWithTooltip level={method.cost} type="cost" />
                 </TableCell>
                 <TableCell>
-                  <LevelBadge level={method.time} type="time" />
+                  <LevelBadgeWithTooltip level={method.time} type="time" />
                 </TableCell>
                 <TableCell className="max-w-md">
                   <CollapsibleText text={method.description} maxLength={100} />
@@ -215,7 +215,7 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
                 <span className="text-xs font-semibold text-muted-foreground">Design Phase</span>
                 <div className="flex flex-wrap gap-1 mt-0.5">
                   {method.designPhase.split(',').map((phase, i) => (
-                    <LevelBadge key={i} level={phase.trim()} type="designPhase" />
+                    <LevelBadgeWithTooltip key={i} level={phase.trim()} type="designPhase" />
                   ))}
                 </div>
               </div>
@@ -223,26 +223,26 @@ export function MethodTable({ methods, sortKey, sortOrder, onSort }: MethodTable
                 <span className="text-xs font-semibold text-muted-foreground">Analysis Focus</span>
                 <div className="flex flex-wrap gap-1 mt-0.5">
                   {method.analysisFocus.split(',').map((focus) => (
-                    <LevelBadge key={focus.trim()} level={focus.trim()} type="analysisFocus" />
+                    <LevelBadgeWithTooltip key={focus.trim()} level={focus.trim()} type="analysisFocus" />
                   ))}
                 </div>
               </div>
               <div className="space-y-1">
                 <span className="text-xs font-semibold text-muted-foreground">Data Collection</span>
                 <div className="mt-0.5">
-                  <LevelBadge level={method.dataCollection} type="dataCollection" />
+                  <LevelBadgeWithTooltip level={method.dataCollection} type="dataCollection" />
                 </div>
               </div>
               <div className="space-y-1">
                 <span className="text-xs font-semibold text-muted-foreground">Cost</span>
                 <div className="mt-0.5">
-                  <LevelBadge level={method.cost} type="cost" />
+                  <LevelBadgeWithTooltip level={method.cost} type="cost" />
                 </div>
               </div>
               <div className="space-y-1">
                 <span className="text-xs font-semibold text-muted-foreground">Time</span>
                 <div className="mt-0.5">
-                  <LevelBadge level={method.time} type="time" />
+                  <LevelBadgeWithTooltip level={method.time} type="time" />
                 </div>
               </div>
             </div>

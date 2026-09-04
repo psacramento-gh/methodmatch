@@ -1,5 +1,11 @@
 import { cn } from '@/lib/utils';
 import { Brain, Users, Pencil, PenTool, Rocket, MessageCircle, ChartNoAxesColumn, LucideIcon } from 'lucide-react';
+import { getBadgeTooltip, type BadgeTooltipType } from '@/data/badgeTooltips';
+import {
+  HybridTooltip,
+  HybridTooltipContent,
+  HybridTooltipTrigger,
+} from '@/components/ui/hybrid-tooltip';
 
 // Export color classes for reuse in filters
 export const badgeColors: Record<string, string> = {
@@ -39,7 +45,7 @@ export const badgeIcons: Record<string, LucideIcon | null> = {
 
 interface LevelBadgeProps {
   level: 'Low' | 'Medium' | 'High' | 'Analytic' | 'Empirical' | 'Plan' | 'Design' | 'Release' | 'Qualitative' | 'Quantitative' | string;
-  type?: 'cost' | 'time' | 'dataCollection' | 'designPhase' | 'analysisFocus';
+  type?: BadgeTooltipType;
 }
 export function LevelBadge({ level, type = 'cost' }: LevelBadgeProps) {
   const baseClasses = "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium";
@@ -108,5 +114,30 @@ export function LevelBadge({ level, type = 'cost' }: LevelBadgeProps) {
       {IconComponent && <IconComponent className="mr-1 h-3 w-3" />}
       {level}
     </span>
+  );
+}
+
+export function LevelBadgeWithTooltip({ level, type = 'cost' }: LevelBadgeProps) {
+  const tooltipText = getBadgeTooltip(level, type);
+
+  if (!tooltipText) {
+    return <LevelBadge level={level} type={type} />;
+  }
+
+  return (
+    <HybridTooltip>
+      <HybridTooltipTrigger asChild>
+        <button
+          type="button"
+          className="inline-flex rounded-full border-0 bg-transparent p-0 cursor-help"
+          aria-label={`${level}: ${tooltipText}`}
+        >
+          <LevelBadge level={level} type={type} />
+        </button>
+      </HybridTooltipTrigger>
+      <HybridTooltipContent>
+        <p className="max-w-xs">{tooltipText}</p>
+      </HybridTooltipContent>
+    </HybridTooltip>
   );
 }
